@@ -8,16 +8,22 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <button class="hamburger-menu" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                <img src="https://via.placeholder.com/40" alt="Smart Fusion">
-                <span>Smart Fusion</span>
+                <img src="logo.svg" alt="Smart Fusion">
+                <span>Vibe Coding</span>
             </div>
             
             <div class="user-profile">
-                <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
-                <h3>David Strong</h3>
+                <img src="ava.jpg" alt="User Avatar" class="avatar">
+                <h3>Afin Maulana</h3>
             </div>
 
             <nav class="menu">
@@ -50,7 +56,9 @@
                         <span class="electricity">Electricity</span>
                     </div>
                 </div>
-                <canvas id="costChart"></canvas>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
             </section>
 
             <div class="bottom-grid">
@@ -58,16 +66,7 @@
                     <div class="section-header">
                         <h2>Active Appliances</h2>
                     </div>
-                    <div class="appliance-list">
-                        <div class="appliance-item">
-                            <span>Heating</span>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 70%"></div>
-                            </div>
-                            <span>1.4 kWh</span>
-                        </div>
-                        <!-- More appliances will be added via JavaScript -->
-                    </div>
+                    <div class="appliance-list"></div>
                 </section>
 
                 <section class="usage-estimate">
@@ -75,25 +74,32 @@
                         <h2>Usage Estimate</h2>
                     </div>
                     <div class="current-usage">Till Now: 218 kWh</div>
-                    <canvas id="usageChart"></canvas>
+                    <div class="chart-container">
+                        <canvas id="usageChart"></canvas>
+                    </div>
                 </section>
 
                 <section class="predictions">
-                    <div class="prediction-card">
-                        <h3>Predicted this Month</h3>
-                        <div class="amount">$229</div>
+                    <div class="section-header">
+                        <h2>Predictions</h2>
                     </div>
-                    <div class="prediction-card">
-                        <h3>Estimated Savings</h3>
-                        <div class="amount">$16</div>
-                    </div>
-                    <div class="prediction-card">
-                        <h3>This Month</h3>
-                        <div class="amount">$216</div>
-                    </div>
-                    <div class="prediction-card">
-                        <h3>So Far this Month</h3>
-                        <div class="amount">$112.5</div>
+                    <div class="prediction-grid">
+                        <div class="prediction-card">
+                            <h3>Predicted this Month</h3>
+                            <div class="amount">$229</div>
+                        </div>
+                        <div class="prediction-card">
+                            <h3>Estimated Savings</h3>
+                            <div class="amount">$16</div>
+                        </div>
+                        <div class="prediction-card">
+                            <h3>This Month</h3>
+                            <div class="amount">$216</div>
+                        </div>
+                        <div class="prediction-card">
+                            <h3>So Far this Month</h3>
+                            <div class="amount">$112.5</div>
+                        </div>
                     </div>
                 </section>
             </div>

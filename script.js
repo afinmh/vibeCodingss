@@ -1,3 +1,22 @@
+// Sidebar Toggle Functionality
+function initializeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+    hamburgerMenu.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+        hamburgerMenu.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !hamburgerMenu.contains(e.target)) {
+            sidebar.classList.remove('show');
+            hamburgerMenu.classList.remove('active');
+        }
+    });
+}
+
 // Data for the cost chart
 const costData = {
     labels: ['Mar 1', 'Mar 2', 'Mar 3', 'Mar 4', 'Mar 5', 'Mar 6', 'Mar 7', 'Mar 8', 'Mar 9', 'Mar 10', 'Mar 11'],
@@ -5,13 +24,45 @@ const costData = {
         {
             label: 'Gas',
             data: [3, 5, 8, 3, 5, 4, 3, 5, 8, 3, 4],
-            backgroundColor: '#93c5fd',
+            backgroundColor: function(context) {
+                const chart = context.chart;
+                const {ctx, chartArea} = chart;
+                if (!chartArea) {
+                    return null;
+                }
+                const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+                gradient.addColorStop(0, '#93c5fd');
+                gradient.addColorStop(1, '#60a5fa');
+                return gradient;
+            },
+            borderRadius: {
+                topLeft: 0,
+                topRight: 0,
+                bottomLeft: 6,
+                bottomRight: 6
+            },
             stack: 'Stack 0',
         },
         {
             label: 'Electricity',
             data: [4, 3, 5, 4, 6, 5, 4, 3, 4, 4, 7],
-            backgroundColor: '#6b46c1',
+            backgroundColor: function(context) {
+                const chart = context.chart;
+                const {ctx, chartArea} = chart;
+                if (!chartArea) {
+                    return null;
+                }
+                const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+                gradient.addColorStop(0, '#818cf8');
+                gradient.addColorStop(1, '#6366f1');
+                return gradient;
+            },
+            borderRadius: {
+                topLeft: 6,
+                topRight: 6,
+                bottomLeft: 0,
+                bottomRight: 0
+            },
             stack: 'Stack 0',
         }
     ]
@@ -39,35 +90,52 @@ const appliances = [
     { name: 'Others', usage: '0.4 kWh', percentage: 20 }
 ];
 
-// Initialize charts when the DOM is loaded
+// Chart options
+const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+        x: {
+            grid: {
+                display: false
+            }
+        },
+        y: {
+            beginAtZero: true,
+            grid: {
+                borderDash: [2, 4]
+            }
+        }
+    },
+    plugins: {
+        legend: {
+            display: false
+        }
+    }
+};
+
+// Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    initializeSidebar();
+    
     // Initialize the cost chart
     const costChart = new Chart(document.getElementById('costChart'), {
         type: 'bar',
         data: costData,
         options: {
-            responsive: true,
+            ...chartOptions,
             scales: {
+                ...chartOptions.scales,
                 x: {
-                    stacked: true,
-                    grid: {
-                        display: false
-                    }
+                    ...chartOptions.scales.x,
+                    stacked: true
                 },
                 y: {
+                    ...chartOptions.scales.y,
                     stacked: true,
-                    beginAtZero: true,
                     ticks: {
                         callback: value => '$' + value
-                    },
-                    grid: {
-                        borderDash: [2, 4]
                     }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
                 }
             }
         }
@@ -77,27 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usageChart = new Chart(document.getElementById('usageChart'), {
         type: 'line',
         data: usageData,
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    grid: {
-                        display: false
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        borderDash: [2, 4]
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
+        options: chartOptions
     });
 
     // Populate appliances list
