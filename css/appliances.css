@@ -68,6 +68,33 @@
     color: white;
 }
 
+/* Room filter select styling */
+#roomFilter {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Removes default browser styling */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+    min-width: 180px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#roomFilter:hover {
+    border-color: #d1d5db;
+}
+
+#roomFilter:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.1);
+}
+
 /* Appliances Grid Layout */
 .appliances-grid {
     display: grid;
@@ -397,6 +424,30 @@
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
+}
+
+/* No results message styling */
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    width: 100%;
+    grid-column: 1 / -1; /* Make it span all columns in grid view */
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    border: 1px dashed #e5e7eb;
+}
+
+.no-results p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    max-width: 400px;
 }
 
 /* Media queries */

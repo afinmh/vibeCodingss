@@ -1,5 +1,5 @@
-// Sample appliance data
-const appliancesData = [
+// Default appliance data - will be used only if localStorage is empty
+const defaultAppliancesData = [
     {
         id: 1,
         name: "Air Conditioner",
@@ -82,6 +82,16 @@ const appliancesData = [
     }
 ];
 
+// Filter state object
+const filterState = {
+    searchTerm: '',
+    roomFilter: 'all',
+    viewMode: 'grid'
+};
+
+// Initialize appliances data from localStorage or default data
+let appliancesData = [];
+
 // DOM Elements
 const appliancesContainer = document.getElementById('appliancesContainer');
 const searchInput = document.getElementById('searchAppliances');
@@ -95,10 +105,89 @@ const applianceForm = document.getElementById('applianceForm');
 
 // View state
 let currentView = 'grid';
-let filteredAppliances = [...appliancesData];
+let filteredAppliances = [];
+
+// Load appliances from localStorage or use default data
+function loadAppliances() {
+    const storedAppliances = localStorage.getItem('appliances');
+    if (storedAppliances) {
+        appliancesData = JSON.parse(storedAppliances);
+    } else {
+        // If no data in localStorage, use the default data
+        appliancesData = [...defaultAppliancesData];
+        // Save the default data to localStorage
+        saveAppliances();
+    }
+    
+    // Load filter state from localStorage
+    loadFilterState();
+    
+    // Apply the saved filters
+    applyFilterState();
+}
+
+// Save appliances to localStorage
+function saveAppliances() {
+    localStorage.setItem('appliances', JSON.stringify(appliancesData));
+}
+
+// Save current filter state to localStorage
+function saveFilterState() {
+    filterState.searchTerm = searchInput.value;
+    filterState.roomFilter = roomFilter.value;
+    filterState.viewMode = currentView;
+    
+    localStorage.setItem('applianceFilters', JSON.stringify(filterState));
+}
+
+// Load filter state from localStorage
+function loadFilterState() {
+    const savedFilters = localStorage.getItem('applianceFilters');
+    if (savedFilters) {
+        const savedState = JSON.parse(savedFilters);
+        Object.assign(filterState, savedState);
+        
+        // Apply saved values to UI elements
+        searchInput.value = filterState.searchTerm;
+        roomFilter.value = filterState.roomFilter;
+        currentView = filterState.viewMode;
+        
+        // Update active view option
+        viewOptions.forEach(option => {
+            option.classList.toggle('active', option.dataset.view === currentView);
+        });
+    }
+}
+
+// Apply the current filter state to get filtered appliances
+function applyFilterState() {
+    filteredAppliances = appliancesData.filter(appliance => {
+        const matchesSearch = 
+            !filterState.searchTerm || 
+            appliance.name.toLowerCase().includes(filterState.searchTerm.toLowerCase()) ||
+            appliance.type.toLowerCase().includes(filterState.searchTerm.toLowerCase()) ||
+            appliance.room.toLowerCase().includes(filterState.searchTerm.toLowerCase());
+            
+        const matchesRoom = filterState.roomFilter === 'all' || 
+            appliance.room.toLowerCase().replace(' ', '-') === filterState.roomFilter;
+            
+        return matchesSearch && matchesRoom;
+    });
+}
+
+// Generate a unique ID for new appliances
+function generateUniqueId() {
+    const existingIds = appliancesData.map(appliance => appliance.id);
+    let newId = 1;
+    while (existingIds.includes(newId)) {
+        newId++;
+    }
+    return newId;
+}
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
+    loadAppliances();
     renderAppliances();
     setupEventListeners();
 });
@@ -106,10 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Setup event listeners
 function setupEventListeners() {
     // Search functionality
-    searchInput.addEventListener('input', filterAppliances);
+    searchInput.addEventListener('input', () => {
+        filterAppliances();
+        saveFilterState();
+    });
     
     // Room filter
-    roomFilter.addEventListener('change', filterAppliances);
+    roomFilter.addEventListener('change', () => {
+        filterAppliances();
+        saveFilterState();
+    });
     
     // View toggle
     viewOptions.forEach(option => {
@@ -117,12 +212,15 @@ function setupEventListeners() {
             viewOptions.forEach(opt => opt.classList.remove('active'));
             option.classList.add('active');
             currentView = option.dataset.view;
+            saveFilterState();
             renderAppliances();
         });
     });
     
     // Modal controls
     addApplianceBtn.addEventListener('click', () => {
+        // Reset form and prepare for new entry
+        applianceForm.reset();
         applianceModal.classList.add('show');
         document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
     });
@@ -137,10 +235,35 @@ function setupEventListeners() {
         }
     });
     
-    // Form submission (for now, just closes the modal)
+    // Form submission to add a new appliance
     applianceForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // We'll implement form handling later
+        
+        // Get form values
+        const newAppliance = {
+            id: generateUniqueId(),
+            name: document.getElementById('applianceName').value.trim(),
+            type: document.getElementById('applianceType').value,
+            room: document.getElementById('applianceRoom').value.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            powerUsage: Number(document.getElementById('powerUsage').value),
+            usageHours: Number(document.getElementById('usageHours').value),
+            status: document.getElementById('applianceStatus').value,
+            energyEfficiency: Math.round(Math.random() * 40) + 60 // Random efficiency between 60-100%
+        };
+        
+        // Add the new appliance to the data array
+        appliancesData.push(newAppliance);
+        
+        // Save to localStorage
+        saveAppliances();
+        
+        // Apply filters to update the filtered appliances
+        applyFilterState();
+        
+        // Render with the current filters applied
+        renderAppliances();
+        
+        // Close the modal
         closeModal();
     });
 }
@@ -154,21 +277,10 @@ function closeModal() {
 
 // Filter appliances based on search and room filter
 function filterAppliances() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const roomValue = roomFilter.value;
+    filterState.searchTerm = searchInput.value;
+    filterState.roomFilter = roomFilter.value;
     
-    filteredAppliances = appliancesData.filter(appliance => {
-        const matchesSearch = 
-            appliance.name.toLowerCase().includes(searchTerm) ||
-            appliance.type.toLowerCase().includes(searchTerm) ||
-            appliance.room.toLowerCase().includes(searchTerm);
-            
-        const matchesRoom = roomValue === 'all' || 
-            appliance.room.toLowerCase().replace(' ', '-') === roomValue;
-            
-        return matchesSearch && matchesRoom;
-    });
-    
+    applyFilterState();
     renderAppliances();
 }
 
@@ -314,12 +426,28 @@ function editAppliance(id) {
     alert(`Edit functionality for appliance ID ${id} will be implemented later.`);
 }
 
-// Delete appliance (stub for now)
+// Delete appliance - with filter persistence
 function deleteAppliance(id) {
-    console.log(`Delete appliance with ID: ${id}`);
-    // We'll implement deletion functionality later
-    if (confirm(`Are you sure you want to delete this appliance?`)) {
-        alert(`Delete functionality for appliance ID ${id} will be implemented later.`);
+    // Find the appliance by ID
+    const applianceId = parseInt(id);
+    const applianceIndex = appliancesData.findIndex(a => a.id === applianceId);
+    const applianceName = appliancesData[applianceIndex]?.name || 'this appliance';
+    
+    // Confirm deletion
+    if (confirm(`Are you sure you want to delete ${applianceName}?`)) {
+        // Remove the appliance from the array
+        if (applianceIndex !== -1) {
+            appliancesData.splice(applianceIndex, 1);
+            
+            // Save the updated data to localStorage
+            saveAppliances();
+            
+            // Apply the current filters
+            applyFilterState();
+            
+            // Re-render the UI with filters applied
+            renderAppliances();
+        }
     }
 }
 
