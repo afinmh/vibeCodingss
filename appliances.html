@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appliances Management - Energy Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/appliances.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/logo.svg" alt="Smart Fusion">
+                <span>Vibe Coding</span>
+            </div>
+            
+            <div class="user-profile">
+                <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                <h3>Afin Maulana</h3>
+            </div>
+
+            <nav class="menu">
+                <a href="index.html"><span class="icon">📊</span> Dashboard</a>
+                <a href="#"><span class="icon">💰</span> Cost</a>
+                <a href="appliances.html" class="active"><span class="icon">🔌</span> Appliances</a>
+                <a href="#"><span class="icon">🏠</span> Usage by rooms</a>
+                <a href="#"><span class="icon">🌱</span> Emissions</a>
+            </nav>
+
+            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Appliances Management</h1>
+                <div class="header-right">
+                    <select id="roomFilter">
+                        <option value="all">All Rooms</option>
+                        <option value="living-room">Living Room</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="bedroom">Bedroom</option>
+                        <option value="bathroom">Bathroom</option>
+                        <option value="office">Home Office</option>
+                    </select>
+                    <button id="addApplianceBtn" class="add-btn">+ Add Appliance</button>
+                </div>
+            </header>
+
+            <section class="appliances-overview">
+                <div class="section-header">
+                    <h2>Your Appliances</h2>
+                    <div class="actions">
+                        <input type="text" id="searchAppliances" placeholder="Search appliances...">
+                        <div class="view-options">
+                            <span class="view-option active" data-view="grid">📱</span>
+                            <span class="view-option" data-view="list">📃</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="appliances-grid" id="appliancesContainer">
+                    <!-- Appliance items will be populated here -->
+                </div>
+            </section>
+
+            <!-- Add Appliance Modal -->
+            <div class="modal" id="applianceModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Add New Appliance</h2>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <form id="applianceForm">
+                        <div class="form-group">
+                            <label for="applianceName">Appliance Name</label>
+                            <input type="text" id="applianceName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applianceType">Type</label>
+                            <select id="applianceType" required>
+                                <option value="">Select Type</option>
+                                <option value="lighting">Lighting</option>
+                                <option value="heating">Heating</option>
+                                <option value="cooling">Cooling</option>
+                                <option value="kitchen">Kitchen</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="applianceRoom">Room</label>
+                            <select id="applianceRoom" required>
+                                <option value="">Select Room</option>
+                                <option value="living-room">Living Room</option>
+                                <option value="kitchen">Kitchen</option>
+                                <option value="bedroom">Bedroom</option>
+                                <option value="bathroom">Bathroom</option>
+                                <option value="office">Home Office</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="powerUsage">Power Usage (Watts)</label>
+                            <input type="number" id="powerUsage" required min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="usageHours">Average Usage (hours/day)</label>
+                            <input type="number" id="usageHours" required min="0" max="24" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="applianceStatus">Status</label>
+                            <select id="applianceStatus" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/appliances.js"></script>
+</body>
+</html>
