@@ -159,4 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${appliance.usage}</span>
         </div>
     `).join('');
+
+    const menuBtn = document.querySelector('.hamburger-menu');
+    const container = document.querySelector('.container');
+    
+    // Add the '>' symbol to the button
+    menuBtn.textContent = '>';
+    
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        container.classList.toggle('menu-open');
+        
+        // Rotate the '>' symbol when menu is open
+        if (menuBtn.classList.contains('active')) {
+            menuBtn.style.transform = 'rotate(180deg)';
+        } else {
+            menuBtn.style.transform = 'rotate(0deg)';
+        }
+    });
 }); 
