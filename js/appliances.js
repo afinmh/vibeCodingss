@@ -92,6 +92,9 @@ const filterState = {
 // Initialize appliances data from localStorage or default data
 let appliancesData = [];
 
+// Track which appliance is being edited (null when adding new)
+let editingApplianceId = null;
+
 // DOM Elements
 const appliancesContainer = document.getElementById('appliancesContainer');
 const searchInput = document.getElementById('searchAppliances');
@@ -221,6 +224,11 @@ function setupEventListeners() {
     addApplianceBtn.addEventListener('click', () => {
         // Reset form and prepare for new entry
         applianceForm.reset();
+        // Set modal title to Add mode
+        document.querySelector('.modal-header h2').textContent = 'Add New Appliance';
+        // Clear editing state
+        editingApplianceId = null;
+        // Show the modal
         applianceModal.classList.add('show');
         document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
     });
@@ -235,24 +243,44 @@ function setupEventListeners() {
         }
     });
     
-    // Form submission to add a new appliance
+    // Form submission to add or update an appliance
     applianceForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
         // Get form values
-        const newAppliance = {
-            id: generateUniqueId(),
+        const applianceData = {
             name: document.getElementById('applianceName').value.trim(),
             type: document.getElementById('applianceType').value,
             room: document.getElementById('applianceRoom').value.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
             powerUsage: Number(document.getElementById('powerUsage').value),
             usageHours: Number(document.getElementById('usageHours').value),
-            status: document.getElementById('applianceStatus').value,
-            energyEfficiency: Math.round(Math.random() * 40) + 60 // Random efficiency between 60-100%
+            status: document.getElementById('applianceStatus').value
         };
         
-        // Add the new appliance to the data array
-        appliancesData.push(newAppliance);
+        if (editingApplianceId === null) {
+            // Adding a new appliance
+            const newAppliance = {
+                id: generateUniqueId(),
+                ...applianceData,
+                energyEfficiency: Math.round(Math.random() * 40) + 60 // Random efficiency between 60-100%
+            };
+            
+            // Add the new appliance to the data array
+            appliancesData.push(newAppliance);
+        } else {
+            // Updating an existing appliance
+            const applianceIndex = appliancesData.findIndex(a => a.id === editingApplianceId);
+            if (applianceIndex !== -1) {
+                // Preserve the ID and energy efficiency
+                const updatedAppliance = {
+                    ...appliancesData[applianceIndex],
+                    ...applianceData
+                };
+                
+                // Update the appliance in the array
+                appliancesData[applianceIndex] = updatedAppliance;
+            }
+        }
         
         // Save to localStorage
         saveAppliances();
@@ -273,6 +301,7 @@ function closeModal() {
     applianceModal.classList.remove('show');
     document.body.style.overflow = ''; // Restore scrolling
     applianceForm.reset(); // Reset the form
+    editingApplianceId = null; // Clear editing state
 }
 
 // Filter appliances based on search and room filter
@@ -419,11 +448,33 @@ function renderListView() {
     });
 }
 
-// Edit appliance (stub for now)
+// Edit appliance - implemented
 function editAppliance(id) {
-    console.log(`Edit appliance with ID: ${id}`);
-    // We'll implement editing functionality later
-    alert(`Edit functionality for appliance ID ${id} will be implemented later.`);
+    const applianceId = parseInt(id);
+    const appliance = appliancesData.find(a => a.id === applianceId);
+    
+    if (!appliance) {
+        console.error(`Appliance with ID ${id} not found.`);
+        return;
+    }
+    
+    // Set the form values
+    document.getElementById('applianceName').value = appliance.name;
+    document.getElementById('applianceType').value = appliance.type;
+    document.getElementById('applianceRoom').value = appliance.room.toLowerCase().replace(' ', '-');
+    document.getElementById('powerUsage').value = appliance.powerUsage;
+    document.getElementById('usageHours').value = appliance.usageHours;
+    document.getElementById('applianceStatus').value = appliance.status;
+    
+    // Set the editing state
+    editingApplianceId = applianceId;
+    
+    // Set modal title to Edit mode
+    document.querySelector('.modal-header h2').textContent = 'Edit Appliance';
+    
+    // Show the modal
+    applianceModal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
 
 // Delete appliance - with filter persistence
