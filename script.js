@@ -1,9 +1,20 @@
-// Sidebar Toggle Functionality
+// Sidebar Toggle Functionality - Disabled for desktop
 function initializeSidebar() {
+    // For now, we're disabling the sidebar toggle functionality
+    // We'll re-implement this for responsive design later
+    
+    // Keep the sidebar visible at all times for desktop view
     const sidebar = document.querySelector('.sidebar');
     const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const body = document.body;
-
+    
+    // Hide the hamburger menu on desktop
+    hamburgerMenu.style.display = 'none';
+    
+    // Make sure the sidebar is visible
+    sidebar.classList.remove('show');
+    
+    // We're keeping this code commented out for future mobile implementation
+    /*
     hamburgerMenu.addEventListener('click', () => {
         sidebar.classList.toggle('show');
         hamburgerMenu.classList.toggle('active');
@@ -29,6 +40,7 @@ function initializeSidebar() {
             hamburgerMenu.style.left = '12px';
         }
     });
+    */
 }
 
 // Data for the cost chart
