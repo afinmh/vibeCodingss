@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://via.placeholder.com/40" alt="Smart Fusion">
+                <span>Smart Fusion</span>
+            </div>
+            
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
+                <h3>David Strong</h3>
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="active"><span class="icon">📊</span> Dashboard</a>
+                <a href="#"><span class="icon">💰</span> Cost</a>
+                <a href="#"><span class="icon">🔌</span> Appliances</a>
+                <a href="#"><span class="icon">🏠</span> Usage by rooms</a>
+                <a href="#"><span class="icon">🌱</span> Emissions</a>
+            </nav>
+
+            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Energy Dashboard</h1>
+                <div class="header-right">
+                    <select id="timeRange">
+                        <option>LAST 30 DAYS</option>
+                    </select>
+                    <button class="updates-btn">🔔 2 NEW UPDATES</button>
+                </div>
+            </header>
+
+            <section class="cost-section">
+                <div class="section-header">
+                    <h2>Cost: This Month</h2>
+                    <div class="legend">
+                        <span class="gas">Gas</span>
+                        <span class="electricity">Electricity</span>
+                    </div>
+                </div>
+                <canvas id="costChart"></canvas>
+            </section>
+
+            <div class="bottom-grid">
+                <section class="active-appliances">
+                    <div class="section-header">
+                        <h2>Active Appliances</h2>
+                    </div>
+                    <div class="appliance-list">
+                        <div class="appliance-item">
+                            <span>Heating</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 70%"></div>
+                            </div>
+                            <span>1.4 kWh</span>
+                        </div>
+                        <!-- More appliances will be added via JavaScript -->
+                    </div>
+                </section>
+
+                <section class="usage-estimate">
+                    <div class="section-header">
+                        <h2>Usage Estimate</h2>
+                    </div>
+                    <div class="current-usage">Till Now: 218 kWh</div>
+                    <canvas id="usageChart"></canvas>
+                </section>
+
+                <section class="predictions">
+                    <div class="prediction-card">
+                        <h3>Predicted this Month</h3>
+                        <div class="amount">$229</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h3>Estimated Savings</h3>
+                        <div class="amount">$16</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h3>This Month</h3>
+                        <div class="amount">$216</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h3>So Far this Month</h3>
+                        <div class="amount">$112.5</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
