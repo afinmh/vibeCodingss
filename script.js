@@ -2,10 +2,21 @@
 function initializeSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const body = document.body;
 
     hamburgerMenu.addEventListener('click', () => {
         sidebar.classList.toggle('show');
         hamburgerMenu.classList.toggle('active');
+        body.classList.toggle('sidebar-open');
+        
+        // Update the hamburger button position when sidebar is shown/hidden
+        if (sidebar.classList.contains('show')) {
+            hamburgerMenu.style.transform = 'translateY(-50%) rotate(180deg)';
+            hamburgerMenu.style.left = `calc(var(--sidebar-width) - 18px)`;
+        } else {
+            hamburgerMenu.style.transform = 'translateY(-50%) rotate(0deg)';
+            hamburgerMenu.style.left = '12px';
+        }
     });
 
     // Close sidebar when clicking outside
@@ -13,6 +24,9 @@ function initializeSidebar() {
         if (!sidebar.contains(e.target) && !hamburgerMenu.contains(e.target)) {
             sidebar.classList.remove('show');
             hamburgerMenu.classList.remove('active');
+            body.classList.remove('sidebar-open');
+            hamburgerMenu.style.transform = 'translateY(-50%) rotate(0deg)';
+            hamburgerMenu.style.left = '12px';
         }
     });
 }
@@ -159,22 +173,4 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${appliance.usage}</span>
         </div>
     `).join('');
-
-    const menuBtn = document.querySelector('.hamburger-menu');
-    const container = document.querySelector('.container');
-    
-    // Add the '>' symbol to the button
-    menuBtn.textContent = '>';
-    
-    menuBtn.addEventListener('click', () => {
-        menuBtn.classList.toggle('active');
-        container.classList.toggle('menu-open');
-        
-        // Rotate the '>' symbol when menu is open
-        if (menuBtn.classList.contains('active')) {
-            menuBtn.style.transform = 'rotate(180deg)';
-        } else {
-            menuBtn.style.transform = 'rotate(0deg)';
-        }
-    });
-}); 
+});
