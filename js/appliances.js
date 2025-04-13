@@ -193,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAppliances();
     renderAppliances();
     setupEventListeners();
+    
+    // Check for unread notifications and update the badge
+    updateNotificationBadge();
 });
 
 // Setup event listeners
@@ -530,4 +533,23 @@ function getApplianceIcon(type) {
     };
     
     return icons[type] || '🔌';
+}
+
+// Update notification badge in sidebar menu
+function updateNotificationBadge() {
+    // Get notifications from localStorage
+    const storedNotifications = localStorage.getItem('notifications');
+    
+    if (storedNotifications) {
+        const notifications = JSON.parse(storedNotifications);
+        const unreadCount = notifications.filter(notification => !notification.read).length;
+        
+        // Update the notifications menu item if there are unread notifications
+        if (unreadCount > 0) {
+            const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
+            if (notificationMenuItem) {
+                notificationMenuItem.innerHTML = `🔔<span class="badge">${unreadCount}</span>`;
+            }
+        }
+    }
 }

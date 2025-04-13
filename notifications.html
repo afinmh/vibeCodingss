@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Energy Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/logo.svg" alt="Smart Fusion">
+                <span>Vibe Coding</span>
+            </div>
+            
+            <div class="user-profile">
+                <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                <h3>Afin Maulana</h3>
+            </div>
+
+            <nav class="menu">
+                <a href="index.html"><span class="icon">📊</span> Dashboard</a>
+                <!-- <a href="#"><span class="icon">💰</span> Cost</a> -->
+                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
+                <a href="notifications.html" class="active"><span class="icon">🔔</span> Notifications</a>
+                <!-- <a href="#"><span class="icon">🏠</span> Usage by rooms</a> -->
+                <!-- <a href="#"><span class="icon">🌱</span> Emissions</a> -->
+            </nav>
+
+            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Notifications</h1>
+                <div class="header-right">
+                    <select id="notificationFilter">
+                        <option value="all">All Notifications</option>
+                        <option value="info">Information</option>
+                        <option value="warning">Warnings</option>
+                        <option value="danger">Critical</option>
+                        <option value="unread">Unread</option>
+                    </select>
+                    <button id="markAllReadBtn" class="mark-read-btn">Mark All as Read</button>
+                    <button id="createTestNotifBtn" class="add-btn">+ Test Notification</button>
+                </div>
+            </header>
+
+            <section class="notifications-overview">
+                <div class="section-header">
+                    <h2>Your Notifications</h2>
+                    <div class="actions">
+                        <input type="text" id="searchNotifications" placeholder="Search notifications...">
+                        <div class="notification-count">
+                            <span id="unreadCount" class="count">0</span> unread
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notifications-list" id="notificationsContainer">
+                    <!-- Notifications will be populated here -->
+                    <div class="no-notifications">
+                        <p>No notifications yet. Notifications about your energy usage and appliances will appear here.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Test Notification Modal -->
+            <div class="modal" id="notificationModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Create Test Notification</h2>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <form id="notificationForm">
+                        <div class="form-group">
+                            <label for="notificationTitle">Title</label>
+                            <input type="text" id="notificationTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="notificationMessage">Message</label>
+                            <textarea id="notificationMessage" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="notificationType">Type</label>
+                            <select id="notificationType" required>
+                                <option value="info">Information</option>
+                                <option value="warning">Warning</option>
+                                <option value="danger">Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/notifications.js"></script>
+</body>
+</html>

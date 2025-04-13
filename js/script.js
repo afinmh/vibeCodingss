@@ -13,6 +13,9 @@ function initializeSidebar() {
     // Make sure the sidebar is visible
     sidebar.classList.remove('show');
     
+    // Check for unread notifications and update the badge
+    updateNotificationBadge();
+    
     // We're keeping this code commented out for future mobile implementation
     /*
     hamburgerMenu.addEventListener('click', () => {
@@ -41,6 +44,34 @@ function initializeSidebar() {
         }
     });
     */
+}
+
+// Check for unread notifications and update the badge in the menu
+function updateNotificationBadge() {
+    // Get notifications from localStorage
+    const storedNotifications = localStorage.getItem('notifications');
+    
+    if (storedNotifications) {
+        const notifications = JSON.parse(storedNotifications);
+        const unreadCount = notifications.filter(notification => !notification.read).length;
+        
+        // Update the notifications menu item if there are unread notifications
+        if (unreadCount > 0) {
+            const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
+            if (notificationMenuItem) {
+                notificationMenuItem.innerHTML = `🔔<span class="badge">${unreadCount}</span>`;
+            }
+            
+            // Also update the updates button in header if present
+            const updatesBtn = document.querySelector('.updates-btn');
+            if (updatesBtn) {
+                updatesBtn.textContent = `🔔 ${unreadCount} NEW UPDATES`;
+                updatesBtn.addEventListener('click', () => {
+                    window.location.href = 'notifications.html';
+                });
+            }
+        }
+    }
 }
 
 // Data for the cost chart
