@@ -6,6 +6,7 @@
     <title>Notifications - Energy Dashboard</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/chat.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -102,6 +103,27 @@
         </main>
     </div>
 
+    <!-- Chat Popup -->
+    <button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
+
+    <div id="chatPopup" class="chat-popup">
+        <div id="chatHeader" class="chat-header">
+            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <div class="chat-controls">
+                <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
+                <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
+            </div>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <button id="chatSendBtn" class="chat-send-btn">➤</button>
+        </div>
+    </div>
+
     <script src="js/notifications.js"></script>
+    <script src="js/chat.js"></script>
 </body>
 </html>
