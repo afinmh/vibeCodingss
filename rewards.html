@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards - Energy Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/rewards.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Smart Fusion">
+                <span>EnergiAI</span>
+            </div>
+            
+            <div class="user-profile">
+                <a href="profile.html" class="profile-link">
+                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <h3>Afin Maulana</h3>
+                </a>
+            </div>
+
+            <nav class="menu">
+                <a href="index.html"><span class="icon">📊</span> Dashboard</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifications</a>
+                <a href="rewards.html" class="active"><span class="icon">🎁</span> Rewards</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Summary</a>
+            </nav>
+
+            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Energy Rewards</h1>
+                <div class="header-right">
+                    <select id="rewardsFilter">
+                        <option value="all">All Rewards</option>
+                        <option value="available">Available</option>
+                        <option value="claimed">Claimed</option>
+                        <option value="expiring">Expiring Soon</option>
+                    </select>
+                    <span class="points-badge">
+                        <i class="fas fa-leaf"></i>
+                        <span id="totalPoints">1,250</span> Points
+                    </span>
+                </div>
+            </header>
+
+            <section class="rewards-stats">
+                <div class="stats-card">
+                    <div class="stats-header">
+                        <h2>Your Energy Achievements</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon eco">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>32%</h3>
+                                <p>Energy Saved</p>
+                                <span class="stat-period">Last Month</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon points">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>1,250</h3>
+                                <p>Points Earned</p>
+                                <span class="stat-period">Current Balance</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon rank">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Silver</h3>
+                                <p>Current Tier</p>
+                                <span class="stat-period">750 points to Gold</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon redeemed">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>5</h3>
+                                <p>Rewards Claimed</p>
+                                <span class="stat-period">All Time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="rewards-overview">
+                <div class="section-header">
+                    <h2>Available Rewards</h2>
+                    <div class="actions">
+                        <input type="text" id="searchRewards" placeholder="Search rewards...">
+                        <div class="view-options">
+                            <span class="view-option active" data-view="grid">📱</span>
+                            <span class="view-option" data-view="list">📃</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rewards-grid" id="rewardsContainer">
+                    <!-- Rewards will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <section class="rewards-progress">
+                <div class="section-header">
+                    <h2>Your Energy Journey</h2>
+                </div>
+                <div class="progress-timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Eco Starter</h3>
+                            <p>Save your first 10 kWh</p>
+                            <span class="timeline-badge">+100 Points</span>
+                            <span class="timeline-status">Completed</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Eco Enthusiast</h3>
+                            <p>Save 50 kWh in a month</p>
+                            <span class="timeline-badge">+250 Points</span>
+                            <span class="timeline-status">Completed</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Eco Warrior</h3>
+                            <p>Save 100 kWh in a month</p>
+                            <span class="timeline-badge">+500 Points</span>
+                            <span class="timeline-status">Completed</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Eco Champion</h3>
+                            <p>Save 200 kWh in a month</p>
+                            <span class="timeline-badge">+1000 Points</span>
+                            <div class="timeline-progress">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                                <span class="progress-text">75% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Eco Legend</h3>
+                            <p>Save 500 kWh total</p>
+                            <span class="timeline-badge">+2000 Points</span>
+                            <span class="timeline-status">Locked</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reward Claim Modal -->
+            <div class="modal" id="rewardModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Claim Reward</h2>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="reward-details">
+                            <img id="modalRewardImage" src="" alt="Reward Image" class="reward-image">
+                            <h3 id="modalRewardTitle"></h3>
+                            <p id="modalRewardDescription"></p>
+                            <div class="reward-cost">
+                                <i class="fas fa-leaf"></i>
+                                <span id="modalRewardPoints"></span> points
+                            </div>
+                        </div>
+                        <div class="confirm-message">
+                            <p>Are you sure you want to claim this reward?</p>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="button" id="confirmClaimBtn" class="claim-btn">Claim Reward</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat Popup -->
+    <button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
+
+    <div id="chatPopup" class="chat-popup">
+        <div id="chatHeader" class="chat-header">
+            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <div class="chat-controls">
+                <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
+                <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
+            </div>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <button id="chatSendBtn" class="chat-send-btn">➤</button>
+        </div>
+    </div>
+
+    <script src="js/rewards.js" defer></script>
+    <script src="js/chat.js" defer></script>
+</body>
+</html>
