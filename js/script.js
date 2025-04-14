@@ -171,49 +171,47 @@ const chartOptions = {
     }
 };
 
-// Initialize everything when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initializeSidebar();
-    
-    // Initialize the cost chart
-    const costChart = new Chart(document.getElementById('costChart'), {
-        type: 'bar',
-        data: costData,
-        options: {
-            ...chartOptions,
-            scales: {
-                ...chartOptions.scales,
-                x: {
-                    ...chartOptions.scales.x,
-                    stacked: true
-                },
-                y: {
-                    ...chartOptions.scales.y,
-                    stacked: true,
-                    ticks: {
-                        callback: value => '$' + value
-                    }
+// Initialize everything when script loads - no need for DOMContentLoaded anymore with defer
+initializeSidebar();
+
+// Initialize the cost chart
+const costChart = new Chart(document.getElementById('costChart'), {
+    type: 'bar',
+    data: costData,
+    options: {
+        ...chartOptions,
+        scales: {
+            ...chartOptions.scales,
+            x: {
+                ...chartOptions.scales.x,
+                stacked: true
+            },
+            y: {
+                ...chartOptions.scales.y,
+                stacked: true,
+                ticks: {
+                    callback: value => '$' + value
                 }
             }
         }
-    });
-
-    // Initialize the usage estimate chart
-    const usageChart = new Chart(document.getElementById('usageChart'), {
-        type: 'line',
-        data: usageData,
-        options: chartOptions
-    });
-
-    // Populate appliances list
-    const appliancesList = document.querySelector('.appliance-list');
-    appliancesList.innerHTML = appliances.map(appliance => `
-        <div class="appliance-item">
-            <span>${appliance.name}</span>
-            <div class="progress-bar">
-                <div class="progress" style="width: ${appliance.percentage}%"></div>
-            </div>
-            <span>${appliance.usage}</span>
-        </div>
-    `).join('');
+    }
 });
+
+// Initialize the usage estimate chart
+const usageChart = new Chart(document.getElementById('usageChart'), {
+    type: 'line',
+    data: usageData,
+    options: chartOptions
+});
+
+// Populate appliances list
+const appliancesList = document.querySelector('.appliance-list');
+appliancesList.innerHTML = appliances.map(appliance => `
+    <div class="appliance-item">
+        <span>${appliance.name}</span>
+        <div class="progress-bar">
+            <div class="progress" style="width: ${appliance.percentage}%"></div>
+        </div>
+        <span>${appliance.usage}</span>
+    </div>
+`).join('');

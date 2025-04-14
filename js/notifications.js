@@ -50,14 +50,6 @@ const filterState = {
 // Filtered notifications
 let filteredNotifications = [];
 
-// Initialize the page
-document.addEventListener('DOMContentLoaded', () => {
-    loadNotifications();
-    renderNotifications();
-    updateUnreadCount();
-    setupEventListeners();
-});
-
 // Load notifications from localStorage or use default data
 function loadNotifications() {
     const storedNotifications = localStorage.getItem('notifications');
@@ -425,6 +417,12 @@ function updateNavNotificationCount() {
         }
     }
 }
+
+// Initialize the page - no need for DOMContentLoaded with defer attribute
+loadNotifications();
+renderNotifications();
+updateUnreadCount();
+setupEventListeners();
 
 // Check for automatic notifications every 30 seconds
 // This is just for demonstration purposes - in a real app you might do this

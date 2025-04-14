@@ -188,16 +188,6 @@ function generateUniqueId() {
     return newId;
 }
 
-// Initialize the page
-document.addEventListener('DOMContentLoaded', () => {
-    loadAppliances();
-    renderAppliances();
-    setupEventListeners();
-    
-    // Check for unread notifications and update the badge
-    updateNotificationBadge();
-});
-
 // Setup event listeners
 function setupEventListeners() {
     // Search functionality
@@ -553,3 +543,11 @@ function updateNotificationBadge() {
         }
     }
 }
+
+// Initialize the page - no need for DOMContentLoaded with defer attribute
+loadAppliances();
+renderAppliances();
+setupEventListeners();
+
+// Check for unread notifications and update the badge
+updateNotificationBadge();
