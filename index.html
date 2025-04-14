@@ -15,8 +15,8 @@
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                <img src="assets/logo.svg" alt="Smart Fusion">
-                <span>Vibe Coding</span>
+                <img src="assets/logo.png" alt="Smart Fusion">
+                <span>EnergiAI</span>
             </div>
             
             <div class="user-profile">
@@ -49,9 +49,8 @@
 
             <section class="cost-section">
                 <div class="section-header">
-                    <h2>Cost: This Month</h2>
+                    <h2>Electric Cost: This Month</h2>
                     <div class="legend">
-                        <span class="gas">Gas</span>
                         <span class="electricity">Electricity</span>
                     </div>
                 </div>
@@ -68,36 +67,54 @@
                     <div class="appliance-list"></div>
                 </section>
 
-                <section class="usage-estimate">
+                <section class="weather-prediction">
                     <div class="section-header">
-                        <h2>Usage Estimate</h2>
+                        <h2>Weather</h2>
                     </div>
-                    <div class="current-usage">Till Now: 218 kWh</div>
+                    <div class="weather-info">
+                        <div class="weather-icon">🌧️</div>
+                        <div class="weather-details">
+                            <div class="weather-condition">Rainy</div>
+                            <div class="weather-temp">24°C</div>
+                        </div>
+                    </div>
+                    <div class="prediction-advice">
+                        <p>Rainy, turn off the AC to save energy.</p>
+                    </div>
                     <div class="chart-container">
-                        <canvas id="usageChart"></canvas>
+                        <canvas id="weatherChart"></canvas>
                     </div>
                 </section>
 
-                <section class="predictions">
+                <section class="prediction">
                     <div class="section-header">
-                        <h2>Predictions</h2>
+                        <h2>PowerPlan</h2>
                     </div>
-                    <div class="prediction-grid">
-                        <div class="prediction-card">
-                            <h3>Predicted this Month</h3>
-                            <div class="amount">$229</div>
-                        </div>
-                        <div class="prediction-card">
-                            <h3>Estimated Savings</h3>
-                            <div class="amount">$16</div>
-                        </div>
-                        <div class="prediction-card">
-                            <h3>This Month</h3>
-                            <div class="amount">$216</div>
-                        </div>
-                        <div class="prediction-card">
-                            <h3>So Far this Month</h3>
-                            <div class="amount">$112.5</div>
+                    <div class="prediction-content">
+                        <div class="ai-recommendation">
+                            <div class="recommendation-list">
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Matikan AC 1 jam lebih cepat setiap hari</p>
+                                        <span class="savings">Hemat: 10 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Gunakan timer untuk mesin cuci di malam hari</p>
+                                        <span class="savings">Hemat: 5 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Atur suhu kulkas ke level optimal</p>
+                                        <span class="savings">Hemat: 3 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

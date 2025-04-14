@@ -79,30 +79,8 @@ const costData = {
     labels: ['Mar 1', 'Mar 2', 'Mar 3', 'Mar 4', 'Mar 5', 'Mar 6', 'Mar 7', 'Mar 8', 'Mar 9', 'Mar 10', 'Mar 11'],
     datasets: [
         {
-            label: 'Gas',
-            data: [3, 5, 8, 3, 5, 4, 3, 5, 8, 3, 4],
-            backgroundColor: function(context) {
-                const chart = context.chart;
-                const {ctx, chartArea} = chart;
-                if (!chartArea) {
-                    return null;
-                }
-                const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
-                gradient.addColorStop(0, '#93c5fd');
-                gradient.addColorStop(1, '#60a5fa');
-                return gradient;
-            },
-            borderRadius: {
-                topLeft: 0,
-                topRight: 0,
-                bottomLeft: 6,
-                bottomRight: 6
-            },
-            stack: 'Stack 0',
-        },
-        {
             label: 'Electricity',
-            data: [4, 3, 5, 4, 6, 5, 4, 3, 4, 4, 7],
+            data: [40000, 30000, 50000, 40000, 60000, 50000, 40000, 30000, 40000, 40000, 70000],
             backgroundColor: function(context) {
                 const chart = context.chart;
                 const {ctx, chartArea} = chart;
@@ -117,20 +95,19 @@ const costData = {
             borderRadius: {
                 topLeft: 6,
                 topRight: 6,
-                bottomLeft: 0,
-                bottomRight: 0
-            },
-            stack: 'Stack 0',
+                bottomLeft: 6,
+                bottomRight: 6
+            }
         }
     ]
 };
 
 // Data for the usage estimate chart
 const usageData = {
-    labels: ['Mar 1', 'Mar 2', 'Mar 3', 'Mar 4'],
+    labels: ['Mar 1', 'Mar 3', 'Mar 5', 'Mar 7', 'Mar 9'],
     datasets: [{
         label: 'Usage',
-        data: [150, 170, 190, 218],
+        data: [150, 170, 190, 218, 240],
         borderColor: '#f87171',
         backgroundColor: 'rgba(248, 113, 113, 0.1)',
         tension: 0.4,
@@ -138,14 +115,88 @@ const usageData = {
     }]
 };
 
+// Data for the weather prediction chart
+const weatherData = {
+    labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+    datasets: [{
+        label: 'Predicted Usage',
+        data: [1, 1, 2, 2, 3, 2, 2, 1],
+        borderColor: '#7e57c2',
+        backgroundColor: 'rgba(126, 87, 194, 0.1)',
+        tension: 0.4,
+        fill: true
+    }]
+};
+
 // Appliances data
-const appliances = [
-    { name: 'Heating', usage: '1.4 kWh', percentage: 70 },
-    { name: 'EV Charge', usage: '0.9 kWh', percentage: 45 },
-    { name: 'Plug Loads', usage: '0.8 kWh', percentage: 40 },
-    { name: 'Lighting', usage: '0.7 kWh', percentage: 35 },
-    { name: 'Others', usage: '0.4 kWh', percentage: 20 }
-];
+let appliances = [];
+
+// Load appliances from localStorage
+function loadActiveAppliances() {
+    const storedAppliances = localStorage.getItem('appliances');
+    if (storedAppliances) {
+        const allAppliances = JSON.parse(storedAppliances);
+        const activeAppliances = allAppliances.filter(appliance => appliance.status === 'active');
+        
+        // Calculate total power usage for percentage calculation
+        const totalPowerUsage = activeAppliances.reduce((total, appliance) => total + (appliance.powerUsage * appliance.usageHours), 0);
+        
+        // Transform the data to include usage and percentage
+        appliances = activeAppliances.map(appliance => {
+            const dailyUsage = (appliance.powerUsage * appliance.usageHours) / 1000; // Convert to kWh
+            const percentage = Math.round((appliance.powerUsage * appliance.usageHours / totalPowerUsage) * 100);
+            
+            return {
+                id: appliance.id,
+                name: appliance.name,
+                usage: `${dailyUsage.toFixed(1)} kWh`,
+                percentage: percentage,
+                status: appliance.status
+            };
+        });
+    } else {
+        // If no data in localStorage, use default data
+        appliances = [
+            { id: 1, name: 'Air Conditioner', usage: '1.2 kWh', percentage: 70, status: 'active' },
+            { id: 2, name: 'Refrigerator', usage: '0.9 kWh', percentage: 45, status: 'active' },
+            { id: 5, name: 'LED Lights', usage: '0.8 kWh', percentage: 40, status: 'active' }
+        ];
+    }
+}
+
+// Toggle appliance status
+function toggleApplianceStatus(applianceId) {
+    const storedAppliances = localStorage.getItem('appliances');
+    if (storedAppliances) {
+        const allAppliances = JSON.parse(storedAppliances);
+        const appliance = allAppliances.find(a => a.id === applianceId);
+        if (appliance) {
+            appliance.status = appliance.status === 'active' ? 'inactive' : 'active';
+            localStorage.setItem('appliances', JSON.stringify(allAppliances));
+            loadActiveAppliances();
+            renderActiveAppliances();
+        }
+    }
+}
+
+// Render active appliances
+function renderActiveAppliances() {
+    const appliancesList = document.querySelector('.appliance-list');
+    appliancesList.innerHTML = appliances.map(appliance => `
+        <div class="appliance-item">
+            <div class="appliance-header">
+                <div class="appliance-name">${appliance.name}</div>
+                <div class="status-indicator status-${appliance.status}" onclick="toggleApplianceStatus(${appliance.id})"></div>
+            </div>
+            <div class="appliance-details">
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${appliance.percentage}%"></div>
+                </div>
+                <div class="appliance-usage">${appliance.usage}</div>
+            </div>
+        </div>
+    `).join('');
+}
 
 // Chart options
 const chartOptions = {
@@ -161,6 +212,10 @@ const chartOptions = {
             beginAtZero: true,
             grid: {
                 borderDash: [2, 4]
+            },
+            ticks: {
+                stepSize: 1,
+                callback: value => value + ' kWh'
             }
         }
     },
@@ -171,8 +226,10 @@ const chartOptions = {
     }
 };
 
-// Initialize everything when script loads - no need for DOMContentLoaded anymore with defer
+// Initialize everything when script loads
 initializeSidebar();
+loadActiveAppliances();
+renderActiveAppliances();
 
 // Initialize the cost chart
 const costChart = new Chart(document.getElementById('costChart'), {
@@ -182,15 +239,10 @@ const costChart = new Chart(document.getElementById('costChart'), {
         ...chartOptions,
         scales: {
             ...chartOptions.scales,
-            x: {
-                ...chartOptions.scales.x,
-                stacked: true
-            },
             y: {
                 ...chartOptions.scales.y,
-                stacked: true,
                 ticks: {
-                    callback: value => '$' + value
+                    callback: value => 'Rp ' + value.toLocaleString('id-ID')
                 }
             }
         }
@@ -204,14 +256,9 @@ const usageChart = new Chart(document.getElementById('usageChart'), {
     options: chartOptions
 });
 
-// Populate appliances list
-const appliancesList = document.querySelector('.appliance-list');
-appliancesList.innerHTML = appliances.map(appliance => `
-    <div class="appliance-item">
-        <span>${appliance.name}</span>
-        <div class="progress-bar">
-            <div class="progress" style="width: ${appliance.percentage}%"></div>
-        </div>
-        <span>${appliance.usage}</span>
-    </div>
-`).join('');
+// Initialize the weather prediction chart
+const weatherChart = new Chart(document.getElementById('weatherChart'), {
+    type: 'line',
+    data: weatherData,
+    options: chartOptions
+});

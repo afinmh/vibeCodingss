@@ -110,6 +110,7 @@ body.sidebar-open::before {
 }
 
 .logo {
+    justify-content: center;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -117,7 +118,7 @@ body.sidebar-open::before {
 }
 
 .logo img {
-    height: 30px;
+    height: 50px;
     width: auto;
 }
 
@@ -419,66 +420,161 @@ select#timeRange {
 
 /* Active Appliances Styles */
 .appliance-list {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.25rem;
 }
 
 .appliance-item {
     display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.appliance-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.appliance-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(to bottom, #7e57c2, #10b981);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.appliance-item:hover::before {
+    opacity: 1;
+}
+
+.appliance-header {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    font-size: 0.9rem;
+    gap: 0.5rem;
 }
 
 .appliance-name {
-    min-width: 100px;
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.appliance-name::before {
+    content: '⚡';
+    font-size: 0.9rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.status-indicator:hover::after {
+    transform: translateX(100%);
+}
+
+.status-indicator.status-active {
+    background-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.status-indicator.status-inactive {
+    background-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.status-indicator:hover {
+    transform: scale(1.2);
+}
+
+.status-indicator:active {
+    transform: scale(0.9);
+}
+
+.appliance-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .progress-bar {
-    flex: 1;
-    height: 8px;
+    height: 5px;
     background-color: #e5e7eb;
-    border-radius: 4px;
+    border-radius: 2.5px;
     overflow: hidden;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.progress-bar:hover::after {
+    transform: translateX(100%);
 }
 
 .progress {
     height: 100%;
-    border-radius: 4px;
+    background: linear-gradient(90deg, #7e57c2, #10b981);
+    border-radius: 2.5px;
+    transition: width 0.3s ease;
 }
 
-.progress.heating {
-    background-color: #94a3b8;
-    width: 80%;
-}
-
-.progress.ev-charge {
-    background-color: #94a3b8;
-    width: 60%;
-}
-
-.progress.plug-loads {
-    background-color: #94a3b8;
-    width: 45%;
-}
-
-.progress.lighting {
-    background-color: #94a3b8;
-    width: 30%;
-}
-
-.progress.others {
-    background-color: #94a3b8;
-    width: 20%;
-}
-
-.kwh {
-    min-width: 60px;
-    text-align: right;
+.appliance-usage {
+    font-size: 0.75rem;
     color: #64748b;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+}
+
+.appliance-usage::before {
+    content: '📊';
+    font-size: 0.8rem;
 }
 
 /* Usage Estimate Styles */
@@ -603,4 +699,344 @@ select#timeRange {
     select#timeRange, .updates-btn {
         width: auto; /* Don't make them full width */
     }
+}
+
+/* Weather Prediction Styles */
+.weather-prediction {
+    background-color: var(--card-background);
+    padding: 0.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-prediction::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #7e57c2, #10b981);
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-info::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(16, 185, 129, 0.1));
+    border-radius: 50%;
+    transform: translate(20px, -20px);
+}
+
+.weather-icon {
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    border-radius: 50%;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-icon::before {
+    content: '🌧️';
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.weather-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.weather-icon:hover::after {
+    transform: translateX(100%);
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    position: relative;
+    z-index: 1;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgba(96, 165, 250, 0.2);
+}
+
+.weather-condition {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.weather-temp {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.prediction-advice {
+    background-color: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.prediction-advice:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.prediction-advice::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(to bottom, #7e57c2, #10b981);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.prediction-advice:hover::before {
+    opacity: 1;
+}
+
+.prediction-advice p {
+    font-size: 0.8rem;
+    color: #166534;
+    margin: 0;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.prediction-advice p::before {
+    content: '💡';
+    font-size: 0.9rem;
+}
+
+/* Prediction Section Styles */
+.prediction {
+    background-color: var(--card-background);
+    padding: 0.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.prediction::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #7e57c2, #10b981);
+}
+
+.prediction-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ai-recommendation {
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-recommendation::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(16, 185, 129, 0.1));
+    border-radius: 50%;
+    transform: translate(20px, -20px);
+}
+
+.recommendation-header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.recommendation-header i {
+    color: #f59e0b;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.recommendation-header h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.recommendation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.recommendation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    gap: 1rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recommendation-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(to bottom, #7e57c2, #10b981);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.recommendation-item:hover::before {
+    opacity: 1;
+}
+
+.recommendation-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.recommendation-text p {
+    font-size: 0.75rem;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.savings {
+    font-size: 0.7rem;
+    color: #10b981;
+    font-weight: 500;
+    margin-top: 0.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.savings::before {
+    content: '💡';
+    font-size: 0.8rem;
+}
+
+.apply-btn {
+    background-color: #f0fdf4;
+    color: #10b981;
+    border: 1px solid #86efac;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.apply-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.apply-btn:hover {
+    background-color: #dcfce7;
+    transform: translateY(-1px);
+}
+
+.apply-btn:hover::after {
+    transform: translateX(100%);
+}
+
+.prediction .chart-container {
+    height: 100px;
+    margin-top: 0.25rem;
 }

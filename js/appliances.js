@@ -330,7 +330,7 @@ function renderGridView() {
     
     appliancesContainer.innerHTML = filteredAppliances.map(appliance => `
         <div class="appliance-card" data-id="${appliance.id}">
-            <div class="status-indicator status-${appliance.status}"></div>
+            <div class="status-indicator status-${appliance.status}" onclick="toggleStatus(${appliance.id})"></div>
             <h3>${appliance.name}</h3>
             <div class="appliance-info">
                 <div class="info-row">
@@ -379,6 +379,16 @@ function renderGridView() {
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', () => deleteAppliance(btn.dataset.id));
     });
+}
+
+// Toggle appliance status
+function toggleStatus(applianceId) {
+    const appliance = appliancesData.find(a => a.id === applianceId);
+    if (appliance) {
+        appliance.status = appliance.status === 'active' ? 'inactive' : 'active';
+        saveAppliances();
+        renderAppliances();
+    }
 }
 
 // Render appliances in a list view
