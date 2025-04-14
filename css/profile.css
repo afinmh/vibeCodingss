@@ -9,12 +9,13 @@
     border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-color: rgba(126, 87, 194, 0.2);
 }
 
 .profile-header {
@@ -33,11 +34,13 @@
     object-fit: cover;
     border: 3px solid #7e57c2;
     box-shadow: 0 4px 8px rgba(126, 87, 194, 0.2);
-    transition: transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile-avatar:hover {
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 16px rgba(126, 87, 194, 0.3);
+    border-color: #6d4caf;
 }
 
 .profile-info h2 {
@@ -101,12 +104,13 @@
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .info-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(126, 87, 194, 0.2);
 }
 
 .info-item .label {
@@ -136,6 +140,47 @@
     font-size: 0.8rem;
     color: #94a3b8;
     margin-top: 0.2rem;
+}
+
+.info-item:hover .label i {
+    transform: scale(1.1);
+    color: #6d4caf;
+}
+
+.info-item:hover .value {
+    transform: translateX(4px);
+}
+
+.info-item:hover .description {
+    color: #64748b;
+}
+
+.tariff-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(126, 87, 194, 0.1);
+    border-radius: 6px;
+    color: #7e57c2;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tariff-group:hover {
+    transform: translateX(4px);
+    background: rgba(126, 87, 194, 0.15);
+    box-shadow: 0 4px 8px rgba(126, 87, 194, 0.1);
+}
+
+.tariff-group:hover i {
+    transform: scale(1.1);
+}
+
+.tariff-group i {
+    font-size: 0.9rem;
 }
 
 /* Consumption Section Styles */
@@ -336,4 +381,104 @@
     .chart-container {
         height: 250px;
     }
+}
+
+.profile-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-color: rgba(126, 87, 194, 0.2);
+}
+
+.stat-item:hover i {
+    transform: scale(1.1);
+    background: rgba(126, 87, 194, 0.2);
+}
+
+.stat-item:hover .stat-value {
+    color: #7e57c2;
+}
+
+.stat-item i {
+    font-size: 1.25rem;
+    color: #7e57c2;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(126, 87, 194, 0.1);
+    border-radius: 8px;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+header h1 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.edit-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #7e57c2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+    background: #6d4caf;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(126, 87, 194, 0.2);
+}
+
+.edit-profile-btn i {
+    font-size: 1rem;
 } 
