@@ -1,25 +1,25 @@
-// Initialize chart when the page loads
+// Inisialisasi grafik ketika halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     initializeConsumptionChart();
 });
 
-// Initialize consumption comparison chart
+// Inisialisasi grafik perbandingan konsumsi
 function initializeConsumptionChart() {
     const ctx = document.getElementById('consumptionChart').getContext('2d');
     
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
             datasets: [
                 {
-                    label: 'Your Consumption',
+                    label: 'Konsumsi Anda',
                     data: [280, 290, 270, 250, 260, 250],
                     backgroundColor: '#7e57c2',
                     borderRadius: 6
                 },
                 {
-                    label: 'Group Average',
+                    label: 'Rata-rata Grup',
                     data: [300, 310, 290, 280, 290, 280],
                     backgroundColor: '#e2e8f0',
                     borderRadius: 6
@@ -50,4 +50,4 @@ function initializeConsumptionChart() {
             }
         }
     });
-} 
+}

@@ -1,10 +1,10 @@
-// Default appliance data - will be used only if localStorage is empty
+// Data perangkat default - akan digunakan hanya jika localStorage kosong
 const defaultAppliancesData = [
     {
         id: 1,
         name: "Air Conditioner",
         type: "cooling",
-        room: "Living Room",
+        room: "Ruang Tamu",
         powerUsage: 1200,
         usageHours: 6,
         status: "active",
@@ -12,9 +12,9 @@ const defaultAppliancesData = [
     },
     {
         id: 2,
-        name: "Refrigerator",
+        name: "Kulkas",
         type: "kitchen",
-        room: "Kitchen",
+        room: "Dapur",
         powerUsage: 150,
         usageHours: 24,
         status: "active",
@@ -24,7 +24,7 @@ const defaultAppliancesData = [
         id: 3,
         name: "Smart TV",
         type: "entertainment",
-        room: "Living Room",
+        room: "Ruang Tamu",
         powerUsage: 120,
         usageHours: 5,
         status: "inactive",
@@ -32,9 +32,9 @@ const defaultAppliancesData = [
     },
     {
         id: 4,
-        name: "Washing Machine",
+        name: "Mesin Cuci",
         type: "other",
-        room: "Bathroom",
+        room: "Kamar Mandi",
         powerUsage: 500,
         usageHours: 1.5,
         status: "inactive",
@@ -42,9 +42,9 @@ const defaultAppliancesData = [
     },
     {
         id: 5,
-        name: "LED Lights",
+        name: "Lampu LED",
         type: "lighting",
-        room: "Bedroom",
+        room: "Kamar Tidur",
         powerUsage: 40,
         usageHours: 5,
         status: "active",
@@ -52,9 +52,9 @@ const defaultAppliancesData = [
     },
     {
         id: 6,
-        name: "Space Heater",
+        name: "Pemanas Ruangan",
         type: "heating",
-        room: "Home Office",
+        room: "Kantor Rumah",
         powerUsage: 1500,
         usageHours: 3,
         status: "active",
@@ -62,9 +62,9 @@ const defaultAppliancesData = [
     },
     {
         id: 7,
-        name: "Desktop Computer",
+        name: "Komputer",
         type: "other",
-        room: "Home Office",
+        room: "Kantor Rumah",
         powerUsage: 250,
         usageHours: 8,
         status: "active",
@@ -74,7 +74,7 @@ const defaultAppliancesData = [
         id: 8,
         name: "Microwave",
         type: "kitchen",
-        room: "Kitchen",
+        room: "Dapur",
         powerUsage: 1000,
         usageHours: 0.5,
         status: "inactive",
@@ -82,20 +82,20 @@ const defaultAppliancesData = [
     }
 ];
 
-// Filter state object
+// Objek status filter
 const filterState = {
     searchTerm: '',
     roomFilter: 'all',
     viewMode: 'grid'
 };
 
-// Initialize appliances data from localStorage or default data
+// Inisialisasi data perangkat dari localStorage atau data default
 let appliancesData = [];
 
-// Track which appliance is being edited (null when adding new)
+// Lacak perangkat mana yang sedang diedit (null saat menambahkan baru)
 let editingApplianceId = null;
 
-// DOM Elements
+// Elemen DOM
 const appliancesContainer = document.getElementById('appliancesContainer');
 const searchInput = document.getElementById('searchAppliances');
 const roomFilter = document.getElementById('roomFilter');
@@ -106,35 +106,35 @@ const closeModalBtn = document.querySelector('.close-modal');
 const cancelBtn = document.querySelector('.cancel-btn');
 const applianceForm = document.getElementById('applianceForm');
 
-// View state
+// Status tampilan
 let currentView = 'grid';
 let filteredAppliances = [];
 
-// Load appliances from localStorage or use default data
+// Muat perangkat dari localStorage atau gunakan data default
 function loadAppliances() {
     const storedAppliances = localStorage.getItem('appliances');
     if (storedAppliances) {
         appliancesData = JSON.parse(storedAppliances);
     } else {
-        // If no data in localStorage, use the default data
+        // Jika tidak ada data di localStorage, gunakan data default
         appliancesData = [...defaultAppliancesData];
-        // Save the default data to localStorage
+        // Simpan data default ke localStorage
         saveAppliances();
     }
     
-    // Load filter state from localStorage
+    // Muat status filter dari localStorage
     loadFilterState();
     
-    // Apply the saved filters
+    // Terapkan filter yang disimpan
     applyFilterState();
 }
 
-// Save appliances to localStorage
+// Simpan perangkat ke localStorage
 function saveAppliances() {
     localStorage.setItem('appliances', JSON.stringify(appliancesData));
 }
 
-// Save current filter state to localStorage
+// Simpan status filter saat ini ke localStorage
 function saveFilterState() {
     filterState.searchTerm = searchInput.value;
     filterState.roomFilter = roomFilter.value;
@@ -143,26 +143,26 @@ function saveFilterState() {
     localStorage.setItem('applianceFilters', JSON.stringify(filterState));
 }
 
-// Load filter state from localStorage
+// Muat status filter dari localStorage
 function loadFilterState() {
     const savedFilters = localStorage.getItem('applianceFilters');
     if (savedFilters) {
         const savedState = JSON.parse(savedFilters);
         Object.assign(filterState, savedState);
         
-        // Apply saved values to UI elements
+        // Terapkan nilai yang disimpan ke elemen UI
         searchInput.value = filterState.searchTerm;
         roomFilter.value = filterState.roomFilter;
         currentView = filterState.viewMode;
         
-        // Update active view option
+        // Perbarui opsi tampilan aktif
         viewOptions.forEach(option => {
             option.classList.toggle('active', option.dataset.view === currentView);
         });
     }
 }
 
-// Apply the current filter state to get filtered appliances
+// Terapkan status filter saat ini untuk mendapatkan perangkat yang difilter
 function applyFilterState() {
     filteredAppliances = appliancesData.filter(appliance => {
         const matchesSearch = 
@@ -178,7 +178,7 @@ function applyFilterState() {
     });
 }
 
-// Generate a unique ID for new appliances
+// Hasilkan ID unik untuk perangkat baru
 function generateUniqueId() {
     const existingIds = appliancesData.map(appliance => appliance.id);
     let newId = 1;
@@ -188,21 +188,21 @@ function generateUniqueId() {
     return newId;
 }
 
-// Setup event listeners
+// Siapkan event listener
 function setupEventListeners() {
-    // Search functionality
+    // Fungsi pencarian
     searchInput.addEventListener('input', () => {
         filterAppliances();
         saveFilterState();
     });
     
-    // Room filter
+    // Filter ruangan
     roomFilter.addEventListener('change', () => {
         filterAppliances();
         saveFilterState();
     });
     
-    // View toggle
+    // Alih tampilan
     viewOptions.forEach(option => {
         option.addEventListener('click', () => {
             viewOptions.forEach(opt => opt.classList.remove('active'));
@@ -213,34 +213,34 @@ function setupEventListeners() {
         });
     });
     
-    // Modal controls
+    // Kontrol modal
     addApplianceBtn.addEventListener('click', () => {
-        // Reset form and prepare for new entry
+        // Reset form dan persiapkan untuk entri baru
         applianceForm.reset();
-        // Set modal title to Add mode
-        document.querySelector('.modal-header h2').textContent = 'Add New Appliance';
-        // Clear editing state
+        // Atur judul modal ke mode Tambah
+        document.querySelector('.modal-header h2').textContent = 'Tambah Perangkat Baru';
+        // Hapus status pengeditan
         editingApplianceId = null;
-        // Show the modal
+        // Tampilkan modal
         applianceModal.classList.add('show');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        document.body.style.overflow = 'hidden'; // Mencegah guliran ketika modal terbuka
     });
     
     closeModalBtn.addEventListener('click', closeModal);
     cancelBtn.addEventListener('click', closeModal);
     
-    // Close modal if user clicks outside of it
+    // Tutup modal jika pengguna mengklik di luarnya
     applianceModal.addEventListener('click', (e) => {
         if (e.target === applianceModal) {
             closeModal();
         }
     });
     
-    // Form submission to add or update an appliance
+    // Pengajuan form untuk menambah atau memperbarui perangkat
     applianceForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Get form values
+        // Dapatkan nilai form
         const applianceData = {
             name: document.getElementById('applianceName').value.trim(),
             type: document.getElementById('applianceType').value,
@@ -251,53 +251,53 @@ function setupEventListeners() {
         };
         
         if (editingApplianceId === null) {
-            // Adding a new appliance
+            // Menambahkan perangkat baru
             const newAppliance = {
                 id: generateUniqueId(),
                 ...applianceData,
-                energyEfficiency: Math.round(Math.random() * 40) + 60 // Random efficiency between 60-100%
+                energyEfficiency: Math.round(Math.random() * 40) + 60 // Efisiensi acak antara 60-100%
             };
             
-            // Add the new appliance to the data array
+            // Tambahkan perangkat baru ke array data
             appliancesData.push(newAppliance);
         } else {
-            // Updating an existing appliance
+            // Memperbarui perangkat yang ada
             const applianceIndex = appliancesData.findIndex(a => a.id === editingApplianceId);
             if (applianceIndex !== -1) {
-                // Preserve the ID and energy efficiency
+                // Pertahankan ID dan efisiensi energi
                 const updatedAppliance = {
                     ...appliancesData[applianceIndex],
                     ...applianceData
                 };
                 
-                // Update the appliance in the array
+                // Perbarui perangkat dalam array
                 appliancesData[applianceIndex] = updatedAppliance;
             }
         }
         
-        // Save to localStorage
+        // Simpan ke localStorage
         saveAppliances();
         
-        // Apply filters to update the filtered appliances
+        // Terapkan filter untuk memperbarui perangkat yang difilter
         applyFilterState();
         
-        // Render with the current filters applied
+        // Render dengan filter saat ini yang diterapkan
         renderAppliances();
         
-        // Close the modal
+        // Tutup modal
         closeModal();
     });
 }
 
-// Close the modal
+// Tutup modal
 function closeModal() {
     applianceModal.classList.remove('show');
-    document.body.style.overflow = ''; // Restore scrolling
-    applianceForm.reset(); // Reset the form
-    editingApplianceId = null; // Clear editing state
+    document.body.style.overflow = ''; // Kembalikan guliran
+    applianceForm.reset(); // Reset formulir
+    editingApplianceId = null; // Hapus status pengeditan
 }
 
-// Filter appliances based on search and room filter
+// Filter perangkat berdasarkan pencarian dan filter ruangan
 function filterAppliances() {
     filterState.searchTerm = searchInput.value;
     filterState.roomFilter = roomFilter.value;
@@ -306,7 +306,7 @@ function filterAppliances() {
     renderAppliances();
 }
 
-// Render appliances based on the current view and filters
+// Render perangkat berdasarkan tampilan dan filter saat ini
 function renderAppliances() {
     if (currentView === 'grid') {
         renderGridView();
@@ -315,14 +315,14 @@ function renderAppliances() {
     }
 }
 
-// Render appliances in a grid view
+// Render perangkat dalam tampilan grid
 function renderGridView() {
     appliancesContainer.className = 'appliances-grid';
     
     if (filteredAppliances.length === 0) {
         appliancesContainer.innerHTML = `
             <div class="no-results">
-                <p>No appliances found. Try adjusting your filters or add a new appliance.</p>
+                <p>Tidak ada perangkat ditemukan. Coba sesuaikan filter Anda atau tambahkan perangkat baru.</p>
             </div>
         `;
         return;
@@ -334,29 +334,29 @@ function renderGridView() {
             <h3>${appliance.name}</h3>
             <div class="appliance-info">
                 <div class="info-row">
-                    <span class="info-label">Type:</span>
-                    <span class="info-value">${capitalizeFirstLetter(appliance.type)}</span>
+                    <span class="info-label">Jenis:</span>
+                    <span class="info-value">${translateType(appliance.type)}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Room:</span>
+                    <span class="info-label">Ruangan:</span>
                     <span class="info-value">${appliance.room}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Power:</span>
+                    <span class="info-label">Daya:</span>
                     <span class="info-value">${appliance.powerUsage} W</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Daily Usage:</span>
-                    <span class="info-value">${appliance.usageHours} hrs</span>
+                    <span class="info-label">Penggunaan Harian:</span>
+                    <span class="info-value">${appliance.usageHours} jam</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Status:</span>
-                    <span class="info-value">${capitalizeFirstLetter(appliance.status)}</span>
+                    <span class="info-value">${translateStatus(appliance.status)}</span>
                 </div>
             </div>
             <div class="energy-usage">
                 <div class="info-row">
-                    <span class="info-label">Energy Efficiency:</span>
+                    <span class="info-label">Efisiensi Energi:</span>
                     <span class="info-value">${appliance.energyEfficiency}%</span>
                 </div>
                 <div class="progress-bar">
@@ -366,12 +366,12 @@ function renderGridView() {
             </div>
             <div class="appliance-actions">
                 <button class="action-btn edit-btn" data-id="${appliance.id}">Edit</button>
-                <button class="action-btn delete-btn" data-id="${appliance.id}">Delete</button>
+                <button class="action-btn delete-btn" data-id="${appliance.id}">Hapus</button>
             </div>
         </div>
     `).join('');
     
-    // Add event listeners for edit and delete buttons
+    // Tambahkan event listener untuk tombol edit dan hapus
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', () => editAppliance(btn.dataset.id));
     });
@@ -381,7 +381,7 @@ function renderGridView() {
     });
 }
 
-// Toggle appliance status
+// Beralih status perangkat
 function toggleStatus(applianceId) {
     const appliance = appliancesData.find(a => a.id === applianceId);
     if (appliance) {
@@ -391,32 +391,32 @@ function toggleStatus(applianceId) {
     }
 }
 
-// Render appliances in a list view
+// Render perangkat dalam tampilan daftar
 function renderListView() {
     appliancesContainer.className = 'appliances-list';
     
     if (filteredAppliances.length === 0) {
         appliancesContainer.innerHTML = `
             <div class="no-results">
-                <p>No appliances found. Try adjusting your filters or add a new appliance.</p>
+                <p>Tidak ada perangkat ditemukan. Coba sesuaikan filter Anda atau tambahkan perangkat baru.</p>
             </div>
         `;
         return;
     }
     
-    // Create header row
+    // Buat baris header
     let listHTML = `
         <div class="appliance-row appliance-row-header">
-            <div class="appliance-column">Appliance</div>
-            <div class="appliance-column room-column">Room</div>
-            <div class="appliance-column power-column">Power</div>
-            <div class="appliance-column usage-hours-column">Usage (hrs)</div>
+            <div class="appliance-column">Perangkat</div>
+            <div class="appliance-column room-column">Ruangan</div>
+            <div class="appliance-column power-column">Daya</div>
+            <div class="appliance-column usage-hours-column">Penggunaan (jam)</div>
             <div class="appliance-column status-column">Status</div>
-            <div class="appliance-column">Actions</div>
+            <div class="appliance-column">Tindakan</div>
         </div>
     `;
     
-    // Create data rows
+    // Buat baris data
     listHTML += filteredAppliances.map(appliance => `
         <div class="appliance-row" data-id="${appliance.id}">
             <div class="appliance-column appliance-name-cell">
@@ -429,19 +429,19 @@ function renderListView() {
             <div class="appliance-column status-column">
                 <div class="appliance-status">
                     <div class="appliance-status-indicator status-${appliance.status}"></div>
-                    <span>${capitalizeFirstLetter(appliance.status)}</span>
+                    <span>${translateStatus(appliance.status)}</span>
                 </div>
             </div>
             <div class="appliance-column appliance-row-actions">
                 <button class="action-btn edit-btn" data-id="${appliance.id}">Edit</button>
-                <button class="action-btn delete-btn" data-id="${appliance.id}">Delete</button>
+                <button class="action-btn delete-btn" data-id="${appliance.id}">Hapus</button>
             </div>
         </div>
     `).join('');
     
     appliancesContainer.innerHTML = listHTML;
     
-    // Add event listeners for edit and delete buttons
+    // Tambahkan event listener untuk tombol edit dan hapus
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', () => editAppliance(btn.dataset.id));
     });
@@ -451,17 +451,17 @@ function renderListView() {
     });
 }
 
-// Edit appliance - implemented
+// Edit perangkat - diterapkan
 function editAppliance(id) {
     const applianceId = parseInt(id);
     const appliance = appliancesData.find(a => a.id === applianceId);
     
     if (!appliance) {
-        console.error(`Appliance with ID ${id} not found.`);
+        console.error(`Perangkat dengan ID ${id} tidak ditemukan.`);
         return;
     }
     
-    // Set the form values
+    // Atur nilai form
     document.getElementById('applianceName').value = appliance.name;
     document.getElementById('applianceType').value = appliance.type;
     document.getElementById('applianceRoom').value = appliance.room.toLowerCase().replace(' ', '-');
@@ -469,59 +469,78 @@ function editAppliance(id) {
     document.getElementById('usageHours').value = appliance.usageHours;
     document.getElementById('applianceStatus').value = appliance.status;
     
-    // Set the editing state
+    // Atur status pengeditan
     editingApplianceId = applianceId;
     
-    // Set modal title to Edit mode
-    document.querySelector('.modal-header h2').textContent = 'Edit Appliance';
+    // Atur judul modal ke mode Edit
+    document.querySelector('.modal-header h2').textContent = 'Edit Perangkat';
     
-    // Show the modal
+    // Tampilkan modal
     applianceModal.classList.add('show');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden'; // Cegah pengguliran
 }
 
-// Delete appliance - with filter persistence
+// Hapus perangkat - dengan persistensi filter
 function deleteAppliance(id) {
-    // Find the appliance by ID
+    // Temukan perangkat berdasarkan ID
     const applianceId = parseInt(id);
     const applianceIndex = appliancesData.findIndex(a => a.id === applianceId);
-    const applianceName = appliancesData[applianceIndex]?.name || 'this appliance';
+    const applianceName = appliancesData[applianceIndex]?.name || 'perangkat ini';
     
-    // Confirm deletion
-    if (confirm(`Are you sure you want to delete ${applianceName}?`)) {
-        // Remove the appliance from the array
+    // Konfirmasi penghapusan
+    if (confirm(`Apakah Anda yakin ingin menghapus ${applianceName}?`)) {
+        // Hapus perangkat dari array
         if (applianceIndex !== -1) {
             appliancesData.splice(applianceIndex, 1);
             
-            // Save the updated data to localStorage
+            // Simpan data yang diperbarui ke localStorage
             saveAppliances();
             
-            // Apply the current filters
+            // Terapkan filter saat ini
             applyFilterState();
             
-            // Re-render the UI with filters applied
+            // Render ulang UI dengan filter yang diterapkan
             renderAppliances();
         }
     }
 }
 
-// Helper function to capitalize the first letter of a string
+// Fungsi pembantu untuk menerjemahkan jenis perangkat
+function translateType(type) {
+    const typeTranslations = {
+        'lighting': 'Pencahayaan',
+        'heating': 'Pemanas',
+        'cooling': 'Pendingin',
+        'kitchen': 'Dapur',
+        'entertainment': 'Hiburan',
+        'other': 'Lainnya'
+    };
+    
+    return typeTranslations[type] || capitalizeFirstLetter(type);
+}
+
+// Fungsi pembantu untuk menerjemahkan status perangkat
+function translateStatus(status) {
+    return status === 'active' ? 'Aktif' : 'Non-aktif';
+}
+
+// Fungsi pembantu untuk mengkapitalisasi huruf pertama dari sebuah string
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Helper function to get color based on efficiency
+// Fungsi pembantu untuk mendapatkan warna berdasarkan efisiensi
 function getEfficiencyColor(efficiency) {
     if (efficiency >= 80) {
-        return '#10b981'; // Green for high efficiency
+        return '#10b981'; // Hijau untuk efisiensi tinggi
     } else if (efficiency >= 60) {
-        return '#fbbf24'; // Yellow for medium efficiency
+        return '#fbbf24'; // Kuning untuk efisiensi menengah
     } else {
-        return '#f87171'; // Red for low efficiency
+        return '#f87171'; // Merah untuk efisiensi rendah
     }
 }
 
-// Helper function to get an icon for the appliance type
+// Fungsi pembantu untuk mendapatkan ikon untuk jenis perangkat
 function getApplianceIcon(type) {
     const icons = {
         lighting: '💡',
@@ -535,16 +554,16 @@ function getApplianceIcon(type) {
     return icons[type] || '🔌';
 }
 
-// Update notification badge in sidebar menu
+// Perbarui lencana notifikasi di menu sidebar
 function updateNotificationBadge() {
-    // Get notifications from localStorage
+    // Dapatkan notifikasi dari localStorage
     const storedNotifications = localStorage.getItem('notifications');
     
     if (storedNotifications) {
         const notifications = JSON.parse(storedNotifications);
         const unreadCount = notifications.filter(notification => !notification.read).length;
         
-        // Update the notifications menu item if there are unread notifications
+        // Perbarui item menu notifikasi jika ada notifikasi yang belum dibaca
         if (unreadCount > 0) {
             const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
             if (notificationMenuItem) {
@@ -554,10 +573,10 @@ function updateNotificationBadge() {
     }
 }
 
-// Initialize the page - no need for DOMContentLoaded with defer attribute
+// Inisialisasi halaman - tidak perlu DOMContentLoaded dengan atribut defer
 loadAppliances();
 renderAppliances();
 setupEventListeners();
 
-// Check for unread notifications and update the badge
+// Periksa notifikasi yang belum dibaca dan perbarui lencana
 updateNotificationBadge();

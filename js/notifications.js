@@ -1,35 +1,35 @@
-// Default notification data - will be used only if localStorage is empty
+// Data notifikasi default - akan digunakan hanya jika localStorage kosong
 const defaultNotifications = [
     {
         id: 1,
-        title: "Welcome to Energy Dashboard",
-        message: "Thank you for using our energy dashboard. You can monitor your energy usage and receive important notifications here.",
+        title: "Selamat Datang di Dashboard Energi",
+        message: "Terima kasih telah menggunakan dashboard energi kami. Anda dapat memantau penggunaan energi dan menerima notifikasi penting di sini.",
         type: "info",
         read: false,
-        timestamp: new Date(Date.now() - 86400000).toISOString() // yesterday
+        timestamp: new Date(Date.now() - 86400000).toISOString() // kemarin
     },
     {
         id: 2,
-        title: "High Energy Usage",
-        message: "Your energy usage is 20% higher than usual. Check your appliances to see what might be causing this increase.",
+        title: "Penggunaan Energi Tinggi",
+        message: "Penggunaan energi Anda 20% lebih tinggi dari biasanya. Periksa perangkat Anda untuk melihat apa yang mungkin menyebabkan peningkatan ini.",
         type: "warning",
         read: false,
-        timestamp: new Date(Date.now() - 43200000).toISOString() // 12 hours ago
+        timestamp: new Date(Date.now() - 43200000).toISOString() // 12 jam yang lalu
     },
     {
         id: 3,
-        title: "Bedroom Lights Left On",
-        message: "Your bedroom lights have been on for over 8 hours. Consider turning them off to save energy.",
+        title: "Lampu Kamar Tidur Masih Menyala",
+        message: "Lampu kamar tidur Anda telah menyala selama lebih dari 8 jam. Pertimbangkan untuk mematikannya untuk menghemat energi.",
         type: "danger",
         read: false,
-        timestamp: new Date(Date.now() - 7200000).toISOString() // 2 hours ago
+        timestamp: new Date(Date.now() - 7200000).toISOString() // 2 jam yang lalu
     }
 ];
 
-// Initialize notifications data from localStorage or default data
+// Inisialisasi data notifikasi dari localStorage atau data default
 let notificationsData = [];
 
-// DOM Elements
+// Elemen DOM
 const notificationsContainer = document.getElementById('notificationsContainer');
 const searchInput = document.getElementById('searchNotifications');
 const notificationFilter = document.getElementById('notificationFilter');
@@ -41,41 +41,41 @@ const notificationForm = document.getElementById('notificationForm');
 const closeModalBtn = document.querySelector('.close-modal');
 const cancelBtn = document.querySelector('.cancel-btn');
 
-// Filter state
+// Status filter
 const filterState = {
     searchTerm: '',
     typeFilter: 'all'
 };
 
-// Filtered notifications
+// Notifikasi yang difilter
 let filteredNotifications = [];
 
-// Load notifications from localStorage or use default data
+// Muat notifikasi dari localStorage atau gunakan data default
 function loadNotifications() {
     const storedNotifications = localStorage.getItem('notifications');
     
     if (storedNotifications) {
         notificationsData = JSON.parse(storedNotifications);
     } else {
-        // If no data in localStorage, use the default data
+        // Jika tidak ada data di localStorage, gunakan data default
         notificationsData = [...defaultNotifications];
-        // Save the default data to localStorage
+        // Simpan data default ke localStorage
         saveNotifications();
     }
     
-    // Sort notifications by timestamp (newest first)
+    // Urutkan notifikasi berdasarkan timestamp (terbaru lebih dulu)
     notificationsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     
-    // Apply default filters
+    // Terapkan filter default
     applyFilters();
 }
 
-// Save notifications to localStorage
+// Simpan notifikasi ke localStorage
 function saveNotifications() {
     localStorage.setItem('notifications', JSON.stringify(notificationsData));
 }
 
-// Apply filters to get filtered notifications
+// Terapkan filter untuk mendapatkan notifikasi yang difilter
 function applyFilters() {
     filteredNotifications = notificationsData.filter(notification => {
         const matchesSearch = !filterState.searchTerm || 
@@ -96,68 +96,68 @@ function applyFilters() {
     });
 }
 
-// Update the unread count display
+// Perbarui tampilan jumlah yang belum dibaca
 function updateUnreadCount() {
     const unreadCount = notificationsData.filter(notification => !notification.read).length;
     unreadCountElement.textContent = unreadCount;
     
-    // Update the title in the notifications tab
+    // Perbarui judul di tab notifikasi
     document.title = unreadCount > 0 
-        ? `(${unreadCount}) Notifications - Energy Dashboard` 
-        : 'Notifications - Energy Dashboard';
+        ? `(${unreadCount}) Notifikasi - Dashboard Energi` 
+        : 'Notifikasi - Dashboard Energi';
 }
 
-// Setup event listeners
+// Siapkan event listener
 function setupEventListeners() {
-    // Search functionality
+    // Fungsi pencarian
     searchInput.addEventListener('input', () => {
         filterState.searchTerm = searchInput.value;
         applyFilters();
         renderNotifications();
     });
     
-    // Filter by type
+    // Filter berdasarkan jenis
     notificationFilter.addEventListener('change', () => {
         filterState.typeFilter = notificationFilter.value;
         applyFilters();
         renderNotifications();
     });
     
-    // Mark all as read
+    // Tandai semua sebagai dibaca
     markAllReadBtn.addEventListener('click', markAllAsRead);
     
-    // Test notification button
+    // Tombol notifikasi uji
     createTestNotifBtn.addEventListener('click', () => {
         notificationModal.classList.add('show');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden'; // Cegah pengguliran
     });
     
-    // Close modal
+    // Tutup modal
     closeModalBtn.addEventListener('click', closeModal);
     cancelBtn.addEventListener('click', closeModal);
     
-    // Close modal if user clicks outside of it
+    // Tutup modal jika pengguna mengklik di luarnya
     notificationModal.addEventListener('click', (e) => {
         if (e.target === notificationModal) {
             closeModal();
         }
     });
     
-    // Create test notification form
+    // Buat formulir notifikasi uji
     notificationForm.addEventListener('submit', (e) => {
         e.preventDefault();
         createTestNotification();
     });
 }
 
-// Close the modal
+// Tutup modal
 function closeModal() {
     notificationModal.classList.remove('show');
-    document.body.style.overflow = ''; // Restore scrolling
-    notificationForm.reset(); // Reset the form
+    document.body.style.overflow = ''; // Kembalikan pengguliran
+    notificationForm.reset(); // Reset formulir
 }
 
-// Create a test notification
+// Buat notifikasi uji
 function createTestNotification() {
     const title = document.getElementById('notificationTitle').value.trim();
     const message = document.getElementById('notificationMessage').value.trim();
@@ -172,26 +172,26 @@ function createTestNotification() {
         timestamp: new Date().toISOString()
     };
     
-    // Add to the beginning of the array (newest first)
+    // Tambahkan ke awal array (terbaru lebih dulu)
     notificationsData.unshift(newNotification);
     
-    // Save to localStorage
+    // Simpan ke localStorage
     saveNotifications();
     
-    // Apply filters
+    // Terapkan filter
     applyFilters();
     
-    // Render notifications
+    // Render notifikasi
     renderNotifications();
     
-    // Update unread count
+    // Perbarui jumlah yang belum dibaca
     updateUnreadCount();
     
-    // Close the modal
+    // Tutup modal
     closeModal();
 }
 
-// Generate a unique ID for new notifications
+// Hasilkan ID unik untuk notifikasi baru
 function generateUniqueId() {
     const existingIds = notificationsData.map(notification => notification.id);
     let newId = 1;
@@ -201,100 +201,100 @@ function generateUniqueId() {
     return newId;
 }
 
-// Mark a notification as read
+// Tandai notifikasi sebagai dibaca
 function markAsRead(id) {
     const notificationIndex = notificationsData.findIndex(n => n.id === parseInt(id));
     
     if (notificationIndex !== -1) {
         notificationsData[notificationIndex].read = true;
         
-        // Save to localStorage
+        // Simpan ke localStorage
         saveNotifications();
         
-        // Apply filters
+        // Terapkan filter
         applyFilters();
         
-        // Render notifications
+        // Render notifikasi
         renderNotifications();
         
-        // Update unread count
+        // Perbarui jumlah yang belum dibaca
         updateUnreadCount();
     }
 }
 
-// Mark all notifications as read
+// Tandai semua notifikasi sebagai dibaca
 function markAllAsRead() {
-    // Mark all notifications as read
+    // Tandai semua notifikasi sebagai dibaca
     notificationsData.forEach(notification => {
         notification.read = true;
     });
     
-    // Save to localStorage
+    // Simpan ke localStorage
     saveNotifications();
     
-    // Apply filters
+    // Terapkan filter
     applyFilters();
     
-    // Render notifications
+    // Render notifikasi
     renderNotifications();
     
-    // Update unread count
+    // Perbarui jumlah yang belum dibaca
     updateUnreadCount();
 }
 
-// Delete a notification
+// Hapus notifikasi
 function deleteNotification(id) {
     const notificationIndex = notificationsData.findIndex(n => n.id === parseInt(id));
     
     if (notificationIndex !== -1) {
-        // Confirm deletion
-        if (confirm("Are you sure you want to delete this notification?")) {
-            // Remove the notification
+        // Konfirmasi penghapusan
+        if (confirm("Apakah Anda yakin ingin menghapus notifikasi ini?")) {
+            // Hapus notifikasi
             notificationsData.splice(notificationIndex, 1);
             
-            // Save to localStorage
+            // Simpan ke localStorage
             saveNotifications();
             
-            // Apply filters
+            // Terapkan filter
             applyFilters();
             
-            // Render notifications
+            // Render notifikasi
             renderNotifications();
             
-            // Update unread count
+            // Perbarui jumlah yang belum dibaca
             updateUnreadCount();
         }
     }
 }
 
-// Render notifications
+// Render notifikasi
 function renderNotifications() {
-    // Clear the container
+    // Kosongkan kontainer
     notificationsContainer.innerHTML = '';
     
-    // Check if there are any notifications to show
+    // Periksa apakah ada notifikasi untuk ditampilkan
     if (filteredNotifications.length === 0) {
         notificationsContainer.innerHTML = `
             <div class="no-notifications">
-                <p>No notifications found. Notifications about your energy usage and appliances will appear here.</p>
+                <p>Tidak ada notifikasi ditemukan. Notifikasi tentang penggunaan energi dan perangkat Anda akan muncul di sini.</p>
             </div>
         `;
         return;
     }
     
-    // Render each notification
+    // Render setiap notifikasi
     filteredNotifications.forEach(notification => {
         const notificationElement = document.createElement('div');
         notificationElement.className = `notification-item ${notification.type} ${notification.read ? '' : 'unread'}`;
         notificationElement.dataset.id = notification.id;
         
-        // Format the date
+        // Format tanggal
         const timestamp = new Date(notification.timestamp);
         const formattedDate = formatTimestamp(timestamp);
         
         let badgeText = 'Info';
-        if (notification.type === 'warning') badgeText = 'Warning';
-        if (notification.type === 'danger') badgeText = 'Critical';
+        if (notification.type === 'warning') badgeText = 'Peringatan';
+        if (notification.type === 'danger') badgeText = 'Penting';
         
         notificationElement.innerHTML = `
             <div class="notification-header">
@@ -304,15 +304,15 @@ function renderNotifications() {
             <p class="notification-message">${notification.message}</p>
             <div class="notification-time">${formattedDate}</div>
             <div class="notification-actions">
-                ${!notification.read ? `<button class="notification-btn read-btn" data-id="${notification.id}">Mark as Read</button>` : ''}
-                <button class="notification-btn delete-btn" data-id="${notification.id}">Delete</button>
+                ${!notification.read ? `<button class="notification-btn read-btn" data-id="${notification.id}">Tandai Dibaca</button>` : ''}
+                <button class="notification-btn delete-btn" data-id="${notification.id}">Hapus</button>
             </div>
         `;
         
         notificationsContainer.appendChild(notificationElement);
     });
     
-    // Add event listeners for the buttons
+    // Tambahkan event listener untuk tombol
     document.querySelectorAll('.read-btn').forEach(btn => {
         btn.addEventListener('click', () => markAsRead(btn.dataset.id));
     });
@@ -322,7 +322,7 @@ function renderNotifications() {
     });
 }
 
-// Format timestamp to a readable format
+// Format timestamp ke format yang mudah dibaca
 function formatTimestamp(timestamp) {
     const now = new Date();
     const diffTime = Math.abs(now - timestamp);
@@ -331,13 +331,13 @@ function formatTimestamp(timestamp) {
     const diffMinutes = Math.floor(diffTime / (1000 * 60));
     
     if (diffMinutes < 60) {
-        return diffMinutes === 0 ? 'Just now' : `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
+        return diffMinutes === 0 ? 'Baru saja' : `${diffMinutes} menit yang lalu`;
     } else if (diffHours < 24) {
-        return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+        return `${diffHours} jam yang lalu`;
     } else if (diffDays < 7) {
-        return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+        return `${diffDays} hari yang lalu`;
     } else {
-        return timestamp.toLocaleDateString('en-US', { 
+        return timestamp.toLocaleDateString('id-ID', { 
             year: 'numeric', 
             month: 'short', 
             day: 'numeric',
@@ -347,30 +347,30 @@ function formatTimestamp(timestamp) {
     }
 }
 
-// Add automatic notifications based on appliance data
+// Tambahkan notifikasi otomatis berdasarkan data perangkat
 function checkForAutomaticNotifications() {
-    // This function would check appliance data and energy usage
-    // to automatically generate notifications when needed
+    // Fungsi ini akan memeriksa data perangkat dan penggunaan energi
+    // untuk secara otomatis menghasilkan notifikasi saat diperlukan
     
-    // For example, if an appliance has been active for too long,
-    // or if energy usage exceeds a threshold
+    // Misalnya, jika perangkat telah aktif terlalu lama,
+    // atau jika penggunaan energi melebihi ambang batas
     
-    // For this example, we'll simulate with a random notification occasionally
-    if (Math.random() < 0.2) { // 20% chance to create a notification
+    // Untuk contoh ini, kita akan mensimulasikan dengan notifikasi acak sesekali
+    if (Math.random() < 0.2) { // 20% kemungkinan membuat notifikasi
         const notificationTypes = [
             {
-                title: "Energy Usage Alert",
-                message: "Your energy consumption is higher than usual today. Consider adjusting your thermostat.",
+                title: "Peringatan Penggunaan Energi",
+                message: "Konsumsi energi Anda lebih tinggi dari biasanya hari ini. Pertimbangkan untuk menyesuaikan termostat Anda.",
                 type: "warning"
             },
             {
-                title: "Appliance Left On",
-                message: "Your kitchen lights have been on for an extended period. Consider turning them off to save energy.",
+                title: "Perangkat Masih Menyala",
+                message: "Lampu dapur Anda telah menyala dalam waktu yang lama. Pertimbangkan untuk mematikannya untuk menghemat energi.",
                 type: "danger"
             },
             {
-                title: "Energy Savings Opportunity",
-                message: "Reducing your heating by 1 degree could save you up to 10% on your energy bill.",
+                title: "Peluang Penghematan Energi",
+                message: "Mengurangi pemanas Anda sebesar 1 derajat dapat menghemat hingga 10% tagihan energi Anda.",
                 type: "info"
             }
         ];
@@ -386,31 +386,31 @@ function checkForAutomaticNotifications() {
             timestamp: new Date().toISOString()
         };
         
-        // Add to the beginning of the array (newest first)
+        // Tambahkan ke awal array (terbaru lebih dulu)
         notificationsData.unshift(newNotification);
         
-        // Save to localStorage
+        // Simpan ke localStorage
         saveNotifications();
         
-        // Apply filters
+        // Terapkan filter
         applyFilters();
         
-        // Render notifications
+        // Render notifikasi
         renderNotifications();
         
-        // Update unread count
+        // Perbarui jumlah yang belum dibaca
         updateUnreadCount();
     }
 }
 
-// Update the navigation menu in other pages to show unread count
+// Perbarui menu navigasi di halaman lain untuk menampilkan jumlah yang belum dibaca
 function updateNavNotificationCount() {
-    // This function would be called from all pages to update the notification icon
-    // in the sidebar with the current unread count
+    // Fungsi ini akan dipanggil dari semua halaman untuk memperbarui ikon notifikasi
+    // di sidebar dengan jumlah yang belum dibaca saat ini
     const unreadCount = notificationsData.filter(notification => !notification.read).length;
     
     if (unreadCount > 0) {
-        // Add a badge to the notifications menu item
+        // Tambahkan lencana ke item menu notifikasi
         const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
         if (notificationMenuItem) {
             notificationMenuItem.innerHTML = `🔔 <span class="badge">${unreadCount}</span>`;
@@ -418,13 +418,13 @@ function updateNavNotificationCount() {
     }
 }
 
-// Initialize the page - no need for DOMContentLoaded with defer attribute
+// Inisialisasi halaman - tidak perlu DOMContentLoaded dengan atribut defer
 loadNotifications();
 renderNotifications();
 updateUnreadCount();
 setupEventListeners();
 
-// Check for automatic notifications every 30 seconds
-// This is just for demonstration purposes - in a real app you might do this
-// based on real-time data or when the user performs certain actions
+// Periksa untuk notifikasi otomatis setiap 30 detik
+// Ini hanya untuk tujuan demonstrasi - dalam aplikasi nyata Anda mungkin melakukan ini
+// berdasarkan data real-time atau ketika pengguna melakukan tindakan tertentu
 setInterval(checkForAutomaticNotifications, 30000);

@@ -192,21 +192,25 @@
     color: #8b5cf6;
 }
 
-.claim-btn {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    padding: 0.375rem 0.75rem;
-    border-radius: 6px;
-    color: #1e293b;
-    font-size: 0.75rem;
-    font-weight: 500;
+/* Klaim Button Styles */
+button.claim-btn {
+    background-color: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-weight: 500;
 }
 
-.claim-btn:hover {
-    background-color: #f1f5f9;
-    border-color: #cbd5e1;
+button.claim-btn:hover {
+    background-color: #7c3aed;
+}
+
+button.claim-btn:disabled {
+    background-color: #cbd5e1;
+    cursor: not-allowed;
 }
 
 .reward-badge {
@@ -367,21 +371,95 @@
 }
 
 /* Modal styles */
-.reward-details {
-    text-align: center;
-    padding: 1rem 0;
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
 }
 
-.reward-image {
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.reward-details {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.reward-details .reward-image {
     width: 100px;
     height: 100px;
     border-radius: 12px;
     margin: 0 auto 1rem;
     object-fit: cover;
-    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(135deg, #f5f3ff, #e9d5ff);
+}
+
+.reward-details .reward-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
 }
 
 .reward-cost {
@@ -397,9 +475,10 @@
 
 .confirm-message {
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
     border-top: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
+    color: #475569;
 }
 
 .modal-actions {
@@ -409,29 +488,300 @@
     padding: 1rem;
 }
 
-.claim-btn {
-    background-color: #8b5cf6;
-    color: white;
-    border: none;
+.cancel-btn {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
     padding: 0.5rem 1.5rem;
     border-radius: 0.5rem;
+    color: #1e293b;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
 }
 
-.claim-btn:hover {
-    background-color: #7c3aed;
+.cancel-btn:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
 }
 
-.claim-btn:disabled {
-    background-color: #cbd5e1;
-    cursor: not-allowed;
+/* Pencapaian Energi Anda section */
+.pencapaian-energi {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pencapaian-energi h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    color: #1e293b;
+}
+
+.pencapaian-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.pencapaian-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 12px;
+}
+
+.pencapaian-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.pencapaian-icon.eco {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    color: #10b981;
+}
+
+.pencapaian-icon.points {
+    background: linear-gradient(135deg, #f5f3ff, #e9d5ff);
+    color: #8b5cf6;
+}
+
+.pencapaian-icon.rank {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    color: #f59e0b;
+}
+
+.pencapaian-icon.redeemed {
+    background: linear-gradient(135deg, #fff1f2, #fee2e2);
+    color: #ef4444;
+}
+
+.pencapaian-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.pencapaian-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1e293b;
+}
+
+.pencapaian-content p {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0.25rem 0 0;
+}
+
+/* Poin di header */
+.poin-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #f5f3ff, #e9d5ff);
+    color: #8b5cf6;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Filter dropdown */
+.reward-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filter-dropdown {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+/* Search rewards */
+.search-rewards {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.search-rewards input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+.search-rewards input::placeholder {
+    color: #94a3b8;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+/* Section Header dengan Search dan View Toggle */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.section-header .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Input pencarian dengan ikon */
+#searchRewards {
+    padding: 0.625rem 1rem 0.625rem 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    width: 250px;
+    font-size: 0.875rem;
+    color: #1e293b;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="%2394a3b8" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>');
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+    background-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#searchRewards:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+#searchRewards::placeholder {
+    color: #94a3b8;
+}
+
+/* View options toggle buttons */
+.view-options {
+    display: flex;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.view-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    min-width: 2.5rem;
+}
+
+.view-option:hover {
+    background-color: #e2e8f0;
+}
+
+.view-option.active {
+    background-color: #8b5cf6;
+    color: white;
+}
+
+/* Header Dropdown Filter */
+#rewardsFilter {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 0.875rem;
+    color: #1e293b;
+    appearance: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="%2364748b" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#rewardsFilter:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Header Right Section */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* Points Badge in header */
+.points-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #f5f3ff, #e9d5ff);
+    color: #8b5cf6;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.points-badge i {
+    color: #8b5cf6;
 }
 
 /* Responsive design */
 @media (max-width: 1024px) {
-    .stats-grid {
+    .stats-grid,
+    .pencapaian-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
@@ -441,7 +791,8 @@
 }
 
 @media (max-width: 768px) {
-    .stats-grid {
+    .stats-grid,
+    .pencapaian-grid {
         grid-template-columns: 1fr;
     }
     
@@ -451,6 +802,31 @@
     
     .timeline-item {
         gap: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .section-header .actions {
+        width: 100%;
+    }
+    
+    #searchRewards {
+        width: 100%;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
     }
 }
 

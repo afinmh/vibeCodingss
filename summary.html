@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report and History</title>
+    <title>Laporan dan Riwayat</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/summary.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -19,39 +19,39 @@
             
             <div class="user-profile">
                 <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
                     <h3>Afin Maulana</h3>
                 </a>
             </div>
 
             <nav class="menu">
                 <a href="index.html"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
-                <a href="notifications.html"><span class="icon">🔔</span> Notifications</a>
-                <a href="rewards.html"><span class="icon">🎁</span> Rewards</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
-                <a href="summary.html" class="active"><span class="icon">📈</span> Summary</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html" class="active"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
         <div class="main-content">
             <header>
-                <h1>Report and History</h1>
+                <h1>Laporan dan Riwayat</h1>
                 <div class="header-right">
                     <select id="timeRange">
-                        <option value="week">Weekly</option>
-                        <option value="month">Monthly</option>
+                        <option value="week">Mingguan</option>
+                        <option value="month">Bulanan</option>
                     </select>
                     <button class="updates-btn">
-                        <i class="fas fa-download"></i> Export PDF
+                        <i class="fas fa-download"></i> Ekspor PDF
                     </button>
                 </div>
             </header>
 
             <section class="consumption-trend">
                 <div class="section-header">
-                    <h2>Usage History</h2>
+                    <h2>Riwayat Penggunaan</h2>
                 </div>
                 <div class="chart-container">
                     <canvas id="consumptionChart"></canvas>
@@ -60,51 +60,51 @@
 
             <section class="consumption-report">
                 <div class="section-header">
-                    <h2>Detailed Report</h2>
+                    <h2>Laporan Terperinci</h2>
                 </div>
                 <div class="report-content">
                     <div class="report-item">
                         <div class="report-header">
                             <i class="fas fa-bolt"></i>
-                            <h3>Total Consumption</h3>
+                            <h3>Total Konsumsi</h3>
                         </div>
                         <div class="report-value">250 kWh</div>
                         <div class="report-change positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>15% lower than last month</span>
+                            <span>15% lebih rendah dari bulan lalu</span>
                         </div>
                     </div>
                     <div class="report-item">
                         <div class="report-header">
                             <i class="fas fa-money-bill-wave"></i>
-                            <h3>Total Expenditure</h3>
+                            <h3>Total Pengeluaran</h3>
                         </div>
                         <div class="report-value">Rp 750.000</div>
                         <div class="report-change positive">
                             <i class="fas fa-arrow-down"></i>
-                            <span>12% lower than last month</span>
+                            <span>12% lebih rendah dari bulan lalu</span>
                         </div>
                     </div>
                     <div class="report-item">
                         <div class="report-header">
                             <i class="fas fa-piggy-bank"></i>
-                            <h3>Total Savings</h3>
+                            <h3>Total Penghematan</h3>
                         </div>
                         <div class="report-value">Rp 150.000</div>
                         <div class="report-change positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>20% more efficient than last month</span>
+                            <span>20% lebih efisien dari bulan lalu</span>
                         </div>
                     </div>
                     <div class="report-item">
                         <div class="report-header">
                             <i class="fas fa-leaf"></i>
-                            <h3>CO2 Emissions</h3>
+                            <h3>Emisi CO2</h3>
                         </div>
                         <div class="report-value">125 kg</div>
                         <div class="report-change positive">
                             <i class="fas fa-arrow-down"></i>
-                            <span>10% lower than last month</span>
+                            <span>10% lebih rendah dari bulan lalu</span>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                 <div class="trends-container">
                     <div class="trend-item">
                         <div class="section-header">
-                            <h2>Savings Trend</h2>
+                            <h2>Tren Penghematan</h2>
                         </div>
                         <div class="chart-container">
                             <canvas id="savingsChart"></canvas>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="trend-item">
                         <div class="section-header">
-                            <h2>Consumption Trend</h2>
+                            <h2>Tren Konsumsi</h2>
                         </div>
                         <div class="chart-container">
                             <canvas id="consumptionTrendChart"></canvas>

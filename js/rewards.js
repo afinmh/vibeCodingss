@@ -1,77 +1,77 @@
-// Default rewards data - will be used only if localStorage is empty
+// Data hadiah default - akan digunakan hanya jika localStorage kosong
 const defaultRewards = [
     {
         id: 1,
-        title: "₹100 Bill Discount",
-        description: "Get ₹100 off on your next electricity bill",
+        title: "Diskon Rp 100.000 Tagihan",
+        description: "Dapatkan potongan Rp 100.000 untuk tagihan listrik berikutnya",
         points: 800,
-        image: "discount", // We'll use an icon for this
+        image: "discount", // Kita akan menggunakan ikon untuk ini
         badge: "popular",
         type: "discount",
         claimed: false,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 hari dari sekarang
     },
     {
         id: 2,
-        title: "Smart Plug",
-        description: "WiFi-enabled smart plug to monitor and control your appliances remotely",
+        title: "Steker Pintar",
+        description: "Steker pintar dengan WiFi untuk memantau dan mengontrol perangkat Anda dari jarak jauh",
         points: 1500,
         image: "smartplug",
         badge: "new",
         type: "product",
         claimed: false,
-        expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString() // 60 days from now
+        expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString() // 60 hari dari sekarang
     },
     {
         id: 3,
-        title: "Energy Audit",
-        description: "Professional home energy audit to identify potential energy savings",
+        title: "Audit Energi",
+        description: "Audit energi rumah profesional untuk mengidentifikasi potensi penghematan energi",
         points: 2500,
         image: "audit",
         type: "service",
         claimed: false,
-        expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString() // 90 days from now
+        expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString() // 90 hari dari sekarang
     },
     {
         id: 4,
-        title: "LED Bulb Pack",
-        description: "Pack of 4 energy-efficient LED bulbs",
+        title: "Paket Lampu LED",
+        description: "Paket 4 lampu LED hemat energi",
         points: 750,
         image: "ledbulb",
         badge: "popular",
         type: "product",
         claimed: false,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 hari dari sekarang
     },
     {
         id: 5,
-        title: "₹250 Bill Discount",
-        description: "Get ₹250 off on your next electricity bill",
+        title: "Diskon Rp 250.000 Tagihan",
+        description: "Dapatkan potongan Rp 250.000 untuk tagihan listrik berikutnya",
         points: 2000,
         image: "discount",
         type: "discount",
         claimed: false,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 hari dari sekarang
     },
     {
         id: 6,
-        title: "Smart Power Strip",
-        description: "Control multiple devices and monitor energy usage with this smart power strip",
+        title: "Terminal Listrik Pintar",
+        description: "Kontrol beberapa perangkat dan pantau penggunaan energi dengan terminal listrik pintar ini",
         points: 3500,
         image: "powerstrip",
         badge: "limited",
         type: "product",
         claimed: false,
-        expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString() // 14 days from now
+        expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString() // 14 hari dari sekarang
     }
 ];
 
-// Initialize rewards data from localStorage or default data
+// Inisialisasi data hadiah dari localStorage atau data default
 let rewardsData = [];
-let userPoints = 1250; // Default points
+let userPoints = 1250; // Poin default
 let filteredRewards = [];
 
-// DOM Elements
+// Elemen DOM
 const rewardsContainer = document.getElementById('rewardsContainer');
 const searchInput = document.getElementById('searchRewards');
 const rewardsFilter = document.getElementById('rewardsFilter');
@@ -82,16 +82,16 @@ const closeModalBtn = document.querySelector('.close-modal');
 const cancelBtn = document.querySelector('.cancel-btn');
 const confirmClaimBtn = document.getElementById('confirmClaimBtn');
 
-// Current view state
+// Status tampilan saat ini
 let currentView = 'grid';
 
-// Filter state
+// Status filter
 const filterState = {
     searchTerm: '',
     typeFilter: 'all'
 };
 
-// Load rewards from localStorage or use default data
+// Muat hadiah dari localStorage atau gunakan data default
 function loadRewards() {
     const storedRewards = localStorage.getItem('rewards');
     const storedPoints = localStorage.getItem('userPoints');
@@ -109,26 +109,26 @@ function loadRewards() {
         localStorage.setItem('userPoints', userPoints.toString());
     }
     
-    // Update the UI with current points
+    // Perbarui UI dengan poin saat ini
     updatePointsDisplay();
 }
 
-// Save rewards to localStorage
+// Simpan hadiah ke localStorage
 function saveRewards() {
     localStorage.setItem('rewards', JSON.stringify(rewardsData));
 }
 
-// Save user points to localStorage
+// Simpan poin pengguna ke localStorage
 function saveUserPoints() {
     localStorage.setItem('userPoints', userPoints.toString());
 }
 
-// Update points display
+// Perbarui tampilan poin
 function updatePointsDisplay() {
-    totalPointsElement.textContent = userPoints.toLocaleString();
+    totalPointsElement.textContent = userPoints.toLocaleString('id-ID');
 }
 
-// Apply filters to get filtered rewards
+// Terapkan filter untuk mendapatkan hadiah yang difilter
 function applyFilters() {
     filteredRewards = rewardsData.filter(reward => {
         const matchesSearch = !filterState.searchTerm || 
@@ -143,7 +143,7 @@ function applyFilters() {
             } else if (filterState.typeFilter === 'claimed') {
                 matchesType = reward.claimed;
             } else if (filterState.typeFilter === 'expiring') {
-                // Consider rewards expiring in the next 7 days as "expiring soon"
+                // Anggap hadiah yang kedaluwarsa dalam 7 hari ke depan sebagai "segera berakhir"
                 const expiryDate = new Date(reward.expiresAt);
                 const sevenDaysFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
                 matchesType = !reward.claimed && expiryDate <= sevenDaysFromNow;
@@ -154,7 +154,7 @@ function applyFilters() {
     });
 }
 
-// Get icon for reward type
+// Dapatkan ikon untuk jenis hadiah
 function getRewardIcon(image) {
     switch(image) {
         case 'discount':
@@ -172,21 +172,21 @@ function getRewardIcon(image) {
     }
 }
 
-// Get badge label
+// Dapatkan label lencana
 function getBadgeLabel(badge) {
     switch(badge) {
         case 'popular':
-            return 'Popular';
+            return 'Populer';
         case 'new':
-            return 'New';
+            return 'Baru';
         case 'limited':
-            return 'Limited Time';
+            return 'Waktu Terbatas';
         default:
             return '';
     }
 }
 
-// Format expiry date
+// Format tanggal kedaluwarsa
 function formatExpiryDate(expiresAt) {
     const expiryDate = new Date(expiresAt);
     const today = new Date();
@@ -194,53 +194,53 @@ function formatExpiryDate(expiresAt) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 1) {
-        return 'Expires tomorrow';
+        return 'Berakhir besok';
     } else if (diffDays < 7) {
-        return `Expires in ${diffDays} days`;
+        return `Berakhir dalam ${diffDays} hari`;
     } else if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
-        return `Expires in ${weeks} ${weeks === 1 ? 'week' : 'weeks'}`;
+        return `Berakhir dalam ${weeks} ${weeks === 1 ? 'minggu' : 'minggu'}`;
     } else {
-        return `Expires on ${expiryDate.toLocaleDateString()}`;
+        return `Berakhir pada ${expiryDate.toLocaleDateString('id-ID')}`;
     }
 }
 
-// Render rewards based on current view (grid or list)
+// Render hadiah berdasarkan tampilan saat ini (grid atau daftar)
 function renderRewards() {
-    // Apply filters first
+    // Terapkan filter terlebih dahulu
     applyFilters();
     
-    // Clear the container
+    // Kosongkan kontainer
     rewardsContainer.innerHTML = '';
     
-    // Check if there are any rewards to show
+    // Periksa apakah ada hadiah untuk ditampilkan
     if (filteredRewards.length === 0) {
         rewardsContainer.innerHTML = `
             <div class="no-rewards">
-                <p>No rewards found. Keep saving energy to unlock more rewards!</p>
+                <p>Tidak ada hadiah ditemukan. Terus hemat energi untuk membuka lebih banyak hadiah!</p>
             </div>
         `;
         return;
     }
     
-    // Set the container class based on current view
+    // Atur class kontainer berdasarkan tampilan saat ini
     rewardsContainer.className = currentView === 'grid' ? 'rewards-grid' : 'rewards-list';
     
-    // Render rewards
+    // Render hadiah
     filteredRewards.forEach(reward => {
         const rewardElement = document.createElement('div');
         rewardElement.className = currentView === 'grid' ? 'reward-card' : 'reward-row';
         rewardElement.dataset.id = reward.id;
         
-        // Check if the reward has a badge
+        // Periksa apakah hadiah memiliki lencana
         const badgeHtml = reward.badge ? 
             `<span class="reward-badge ${reward.badge}">${getBadgeLabel(reward.badge)}</span>` : '';
         
-        // Check if the reward is claimed
+        // Periksa apakah hadiah telah diklaim
         const claimedHtml = reward.claimed ? 
-            `<span class="reward-badge claimed">Claimed</span>` : '';
+            `<span class="reward-badge claimed">Diklaim</span>` : '';
         
-        // Create content based on view type
+        // Buat konten berdasarkan jenis tampilan
         if (currentView === 'grid') {
             rewardElement.innerHTML = `
                 ${badgeHtml}
@@ -254,19 +254,19 @@ function renderRewards() {
                     <div class="reward-footer">
                         <div class="reward-points">
                             <i class="fas fa-leaf"></i>
-                            ${reward.points.toLocaleString()}
+                            ${reward.points.toLocaleString('id-ID')}
                         </div>
                         ${!reward.claimed ? 
                             `<button class="claim-btn" ${userPoints < reward.points ? 'disabled' : ''}>
-                                ${userPoints < reward.points ? 'Not Enough Points' : 'Claim'}
+                                ${userPoints < reward.points ? 'Poin Kurang' : 'Klaim'}
                             </button>` :
-                            '<span class="claimed-text">Claimed</span>'
+                            '<span class="claimed-text">Diklaim</span>'
                         }
                     </div>
                 </div>
             `;
         } else {
-            // List view
+            // Tampilan daftar
             rewardElement.innerHTML = `
                 ${badgeHtml}
                 ${claimedHtml}
@@ -279,13 +279,13 @@ function renderRewards() {
                 </div>
                 <div class="reward-points">
                     <i class="fas fa-leaf"></i>
-                    ${reward.points.toLocaleString()}
+                    ${reward.points.toLocaleString('id-ID')}
                 </div>
                 ${!reward.claimed ? 
                     `<button class="claim-btn" ${userPoints < reward.points ? 'disabled' : ''}>
-                        ${userPoints < reward.points ? 'Not Enough' : 'Claim'}
+                        ${userPoints < reward.points ? 'Poin Kurang' : 'Klaim'}
                     </button>` :
-                    '<span class="claimed-text">Claimed</span>'
+                    '<span class="claimed-text">Diklaim</span>'
                 }
             `;
         }
@@ -293,7 +293,7 @@ function renderRewards() {
         rewardsContainer.appendChild(rewardElement);
     });
     
-    // Add event listeners to claim buttons
+    // Tambahkan event listener ke tombol klaim
     document.querySelectorAll('.claim-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const rewardCard = e.target.closest('.reward-card') || e.target.closest('.reward-row');
@@ -304,84 +304,84 @@ function renderRewards() {
     });
 }
 
-// Show reward modal for claiming a reward
+// Tampilkan modal hadiah untuk mengklaim hadiah
 function showRewardModal(rewardId) {
     const reward = rewardsData.find(r => r.id === parseInt(rewardId));
     
     if (!reward) return;
     
-    // Populate modal with reward details
+    // Isi modal dengan detail hadiah
     document.getElementById('modalRewardTitle').textContent = reward.title;
     document.getElementById('modalRewardDescription').textContent = reward.description;
-    document.getElementById('modalRewardPoints').textContent = reward.points.toLocaleString();
+    document.getElementById('modalRewardPoints').textContent = reward.points.toLocaleString('id-ID');
     
-    // Set the reward image/icon
+    // Atur gambar/ikon hadiah
     const modalRewardImage = document.getElementById('modalRewardImage');
     modalRewardImage.innerHTML = getRewardIcon(reward.image);
     
-    // Store the reward ID in the confirm button for reference
+    // Simpan ID hadiah di tombol konfirmasi untuk referensi
     confirmClaimBtn.dataset.id = reward.id;
     
-    // Disable confirm button if user doesn't have enough points
+    // Nonaktifkan tombol konfirmasi jika pengguna tidak memiliki cukup poin
     if (userPoints < reward.points) {
         confirmClaimBtn.disabled = true;
-        confirmClaimBtn.textContent = 'Not Enough Points';
+        confirmClaimBtn.textContent = 'Poin Tidak Cukup';
     } else {
         confirmClaimBtn.disabled = false;
-        confirmClaimBtn.textContent = 'Claim Reward';
+        confirmClaimBtn.textContent = 'Klaim Hadiah';
     }
     
-    // Show the modal
+    // Tampilkan modal
     rewardModal.classList.add('show');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden'; // Cegah pengguliran
 }
 
-// Close the reward modal
+// Tutup modal hadiah
 function closeModal() {
     rewardModal.classList.remove('show');
-    document.body.style.overflow = ''; // Restore scrolling
+    document.body.style.overflow = ''; // Kembalikan pengguliran
 }
 
-// Claim a reward
+// Klaim hadiah
 function claimReward(rewardId) {
     const rewardIndex = rewardsData.findIndex(r => r.id === parseInt(rewardId));
     
     if (rewardIndex !== -1) {
         const reward = rewardsData[rewardIndex];
         
-        // Make sure user has enough points
+        // Pastikan pengguna memiliki cukup poin
         if (userPoints >= reward.points) {
-            // Deduct points
+            // Kurangi poin
             userPoints -= reward.points;
             
-            // Mark reward as claimed
+            // Tandai hadiah sebagai diklaim
             rewardsData[rewardIndex].claimed = true;
             
-            // Create a notification about the claimed reward
+            // Buat notifikasi tentang hadiah yang diklaim
             createClaimNotification(reward);
             
-            // Save changes
+            // Simpan perubahan
             saveRewards();
             saveUserPoints();
             
-            // Update points display
+            // Perbarui tampilan poin
             updatePointsDisplay();
             
-            // Re-render rewards
+            // Render ulang hadiah
             renderRewards();
             
-            // Show success message
-            alert(`Congratulations! You've successfully claimed "${reward.title}". Your remaining points: ${userPoints}`);
+            // Tampilkan pesan sukses
+            alert(`Selamat! Anda telah berhasil mengklaim "${reward.title}". Sisa poin Anda: ${userPoints}`);
         }
     }
     
-    // Close the modal
+    // Tutup modal
     closeModal();
 }
 
-// Create a notification when a reward is claimed
+// Buat notifikasi saat hadiah diklaim
 function createClaimNotification(reward) {
-    // Get notifications from localStorage
+    // Dapatkan notifikasi dari localStorage
     let notifications = [];
     const storedNotifications = localStorage.getItem('notifications');
     
@@ -389,36 +389,36 @@ function createClaimNotification(reward) {
         notifications = JSON.parse(storedNotifications);
     }
     
-    // Create a new notification
+    // Buat notifikasi baru
     const newNotification = {
-        id: Date.now(), // Use timestamp as ID
-        title: "Reward Claimed",
-        message: `You've successfully claimed "${reward.title}" for ${reward.points} points.`,
+        id: Date.now(), // Gunakan timestamp sebagai ID
+        title: "Hadiah Diklaim",
+        message: `Anda telah berhasil mengklaim "${reward.title}" seharga ${reward.points} poin.`,
         type: "info",
         read: false,
         timestamp: new Date().toISOString()
     };
     
-    // Add to the beginning of the array (newest first)
+    // Tambahkan ke awal array (terbaru lebih dulu)
     notifications.unshift(newNotification);
     
-    // Save to localStorage
+    // Simpan ke localStorage
     localStorage.setItem('notifications', JSON.stringify(notifications));
     
-    // Update the notifications badge in the sidebar if it exists
+    // Perbarui lencana notifikasi di sidebar jika ada
     updateNotificationBadge();
 }
 
-// Update notification badge in sidebar menu
+// Perbarui lencana notifikasi di menu sidebar
 function updateNotificationBadge() {
-    // Get notifications from localStorage
+    // Dapatkan notifikasi dari localStorage
     const storedNotifications = localStorage.getItem('notifications');
     
     if (storedNotifications) {
         const notifications = JSON.parse(storedNotifications);
         const unreadCount = notifications.filter(notification => !notification.read).length;
         
-        // Update the notifications menu item if there are unread notifications
+        // Perbarui item menu notifikasi jika ada notifikasi yang belum dibaca
         if (unreadCount > 0) {
             const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
             if (notificationMenuItem) {
@@ -428,52 +428,52 @@ function updateNotificationBadge() {
     }
 }
 
-// Setup event listeners
+// Siapkan event listener
 function setupEventListeners() {
-    // Search functionality
+    // Fungsi pencarian
     searchInput.addEventListener('input', () => {
         filterState.searchTerm = searchInput.value;
         renderRewards();
     });
     
-    // Filter by type
+    // Filter berdasarkan jenis
     rewardsFilter.addEventListener('change', () => {
         filterState.typeFilter = rewardsFilter.value;
         renderRewards();
     });
     
-    // View options (grid/list)
+    // Opsi tampilan (grid/daftar)
     viewOptions.forEach(option => {
         option.addEventListener('click', () => {
             currentView = option.dataset.view;
             
-            // Update active class
+            // Perbarui class aktif
             viewOptions.forEach(opt => opt.classList.remove('active'));
             option.classList.add('active');
             
-            // Re-render rewards with the new view
+            // Render ulang hadiah dengan tampilan baru
             renderRewards();
         });
     });
     
-    // Close modal
+    // Tutup modal
     closeModalBtn.addEventListener('click', closeModal);
     cancelBtn.addEventListener('click', closeModal);
     
-    // Close modal if user clicks outside of it
+    // Tutup modal jika pengguna mengklik di luarnya
     rewardModal.addEventListener('click', (e) => {
         if (e.target === rewardModal) {
             closeModal();
         }
     });
     
-    // Claim reward
+    // Klaim hadiah
     confirmClaimBtn.addEventListener('click', () => {
         claimReward(confirmClaimBtn.dataset.id);
     });
 }
 
-// Initialize the page
+// Inisialisasi halaman
 loadRewards();
 renderRewards();
 setupEventListeners();

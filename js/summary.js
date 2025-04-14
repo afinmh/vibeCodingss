@@ -1,16 +1,16 @@
-// Initialize charts when the page loads
+// Inisialisasi grafik ketika halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     initializeCharts();
     setupTimeRangeSelector();
 });
 
-// Initialize both charts
+// Inisialisasi kedua grafik
 function initializeCharts() {
     const consumptionCtx = document.getElementById('consumptionChart').getContext('2d');
     const savingsCtx = document.getElementById('savingsChart').getContext('2d');
     const consumptionTrendCtx = document.getElementById('consumptionTrendChart').getContext('2d');
 
-    // Usage History Chart
+    // Grafik Riwayat Penggunaan
     new Chart(consumptionCtx, {
         type: 'line',
         data: {
@@ -45,7 +45,7 @@ function initializeCharts() {
         }
     });
 
-    // Savings Trend Chart
+    // Grafik Tren Penghematan
     new Chart(savingsCtx, {
         type: 'bar',
         data: {
@@ -70,7 +70,7 @@ function initializeCharts() {
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return 'Rp ' + value.toLocaleString();
+                            return 'Rp ' + value.toLocaleString('id-ID');
                         }
                     }
                 }
@@ -78,7 +78,7 @@ function initializeCharts() {
         }
     });
 
-    // Consumption Trend Chart
+    // Grafik Tren Konsumsi
     new Chart(consumptionTrendCtx, {
         type: 'bar',
         data: {
@@ -112,20 +112,20 @@ function initializeCharts() {
     });
 }
 
-// Setup time range selector
+// Pengaturan pemilih rentang waktu
 function setupTimeRangeSelector() {
     const timeRangeSelect = document.getElementById('timeRange');
     
     timeRangeSelect.addEventListener('change', function() {
-        // Here you would typically fetch new data based on the selected time range
-        // For now, we'll just log the selection
-        console.log('Time range changed to:', this.value);
+        // Biasanya di sini akan mengambil data baru berdasarkan rentang waktu yang dipilih
+        // Untuk saat ini, kita hanya mencatat pemilihan
+        console.log('Rentang waktu diubah menjadi:', this.value);
     });
 }
 
-// Export to PDF functionality
+// Fungsionalitas ekspor ke PDF
 document.querySelector('.updates-btn').addEventListener('click', function() {
-    // Here you would typically implement PDF export functionality
-    // For now, we'll just show an alert
-    alert('Exporting to PDF...');
-}); 
+    // Biasanya di sini akan mengimplementasikan fungsi ekspor PDF
+    // Untuk saat ini, kita hanya menampilkan peringatan
+    alert('Mengekspor ke PDF...');
+});

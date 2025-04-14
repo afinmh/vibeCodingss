@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewards - Energy Dashboard</title>
+    <title>Hadiah - Dashboard Energi</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/rewards.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -20,36 +20,36 @@
             
             <div class="user-profile">
                 <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
                     <h3>Afin Maulana</h3>
                 </a>
             </div>
 
             <nav class="menu">
                 <a href="index.html"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
-                <a href="notifications.html"><span class="icon">🔔</span> Notifications</a>
-                <a href="rewards.html" class="active"><span class="icon">🎁</span> Rewards</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
-                <a href="summary.html"><span class="icon">📈</span> Summary</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html" class="active"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
 
         <main class="main-content">
             <header>
-                <h1>Energy Rewards</h1>
+                <h1>Hadiah Energi</h1>
                 <div class="header-right">
                     <select id="rewardsFilter">
-                        <option value="all">All Rewards</option>
-                        <option value="available">Available</option>
-                        <option value="claimed">Claimed</option>
-                        <option value="expiring">Expiring Soon</option>
+                        <option value="all">Semua Hadiah</option>
+                        <option value="available">Tersedia</option>
+                        <option value="claimed">Diklaim</option>
+                        <option value="expiring">Segera Berakhir</option>
                     </select>
                     <span class="points-badge">
                         <i class="fas fa-leaf"></i>
-                        <span id="totalPoints">1,250</span> Points
+                        <span id="totalPoints">1.250</span> Poin
                     </span>
                 </div>
             </header>
@@ -57,7 +57,7 @@
             <section class="rewards-stats">
                 <div class="stats-card">
                     <div class="stats-header">
-                        <h2>Your Energy Achievements</h2>
+                        <h2>Pencapaian Energi Anda</h2>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-item">
@@ -66,8 +66,8 @@
                             </div>
                             <div class="stat-content">
                                 <h3>32%</h3>
-                                <p>Energy Saved</p>
-                                <span class="stat-period">Last Month</span>
+                                <p>Energi Dihemat</p>
+                                <span class="stat-period">Bulan Lalu</span>
                             </div>
                         </div>
                         <div class="stat-item">
@@ -75,9 +75,9 @@
                                 <i class="fas fa-leaf"></i>
                             </div>
                             <div class="stat-content">
-                                <h3>1,250</h3>
-                                <p>Points Earned</p>
-                                <span class="stat-period">Current Balance</span>
+                                <h3>1.250</h3>
+                                <p>Poin Diperoleh</p>
+                                <span class="stat-period">Saldo Saat Ini</span>
                             </div>
                         </div>
                         <div class="stat-item">
@@ -85,9 +85,9 @@
                                 <i class="fas fa-trophy"></i>
                             </div>
                             <div class="stat-content">
-                                <h3>Silver</h3>
-                                <p>Current Tier</p>
-                                <span class="stat-period">750 points to Gold</span>
+                                <h3>Perak</h3>
+                                <p>Level Saat Ini</p>
+                                <span class="stat-period">750 poin ke Emas</span>
                             </div>
                         </div>
                         <div class="stat-item">
@@ -96,8 +96,8 @@
                             </div>
                             <div class="stat-content">
                                 <h3>5</h3>
-                                <p>Rewards Claimed</p>
-                                <span class="stat-period">All Time</span>
+                                <p>Hadiah Diklaim</p>
+                                <span class="stat-period">Sepanjang Waktu</span>
                             </div>
                         </div>
                     </div>
@@ -106,9 +106,9 @@
 
             <section class="rewards-overview">
                 <div class="section-header">
-                    <h2>Available Rewards</h2>
+                    <h2>Hadiah Tersedia</h2>
                     <div class="actions">
-                        <input type="text" id="searchRewards" placeholder="Search rewards...">
+                        <input type="text" id="searchRewards" placeholder="Cari hadiah...">
                         <div class="view-options">
                             <span class="view-option active" data-view="grid">📱</span>
                             <span class="view-option" data-view="list">📃</span>
@@ -123,7 +123,7 @@
 
             <section class="rewards-progress">
                 <div class="section-header">
-                    <h2>Your Energy Journey</h2>
+                    <h2>Perjalanan Energi Anda</h2>
                 </div>
                 <div class="progress-timeline">
                     <div class="timeline-item completed">
@@ -131,10 +131,10 @@
                             <i class="fas fa-seedling"></i>
                         </div>
                         <div class="timeline-content">
-                            <h3>Eco Starter</h3>
-                            <p>Save your first 10 kWh</p>
-                            <span class="timeline-badge">+100 Points</span>
-                            <span class="timeline-status">Completed</span>
+                            <h3>Pemula Hijau</h3>
+                            <p>Hemat 10 kWh pertama Anda</p>
+                            <span class="timeline-badge">+100 Poin</span>
+                            <span class="timeline-status">Selesai</span>
                         </div>
                     </div>
                     <div class="timeline-item completed">
@@ -142,10 +142,10 @@
                             <i class="fas fa-leaf"></i>
                         </div>
                         <div class="timeline-content">
-                            <h3>Eco Enthusiast</h3>
-                            <p>Save 50 kWh in a month</p>
-                            <span class="timeline-badge">+250 Points</span>
-                            <span class="timeline-status">Completed</span>
+                            <h3>Penggemar Lingkungan</h3>
+                            <p>Hemat 50 kWh dalam sebulan</p>
+                            <span class="timeline-badge">+250 Poin</span>
+                            <span class="timeline-status">Selesai</span>
                         </div>
                     </div>
                     <div class="timeline-item completed">
@@ -153,10 +153,10 @@
                             <i class="fas fa-tree"></i>
                         </div>
                         <div class="timeline-content">
-                            <h3>Eco Warrior</h3>
-                            <p>Save 100 kWh in a month</p>
-                            <span class="timeline-badge">+500 Points</span>
-                            <span class="timeline-status">Completed</span>
+                            <h3>Pejuang Lingkungan</h3>
+                            <p>Hemat 100 kWh dalam sebulan</p>
+                            <span class="timeline-badge">+500 Poin</span>
+                            <span class="timeline-status">Selesai</span>
                         </div>
                     </div>
                     <div class="timeline-item active">
@@ -164,14 +164,14 @@
                             <i class="fas fa-mountain"></i>
                         </div>
                         <div class="timeline-content">
-                            <h3>Eco Champion</h3>
-                            <p>Save 200 kWh in a month</p>
-                            <span class="timeline-badge">+1000 Points</span>
+                            <h3>Juara Lingkungan</h3>
+                            <p>Hemat 200 kWh dalam sebulan</p>
+                            <span class="timeline-badge">+1.000 Poin</span>
                             <div class="timeline-progress">
                                 <div class="progress-bar">
                                     <div class="progress" style="width: 75%"></div>
                                 </div>
-                                <span class="progress-text">75% Complete</span>
+                                <span class="progress-text">75% Selesai</span>
                             </div>
                         </div>
                     </div>
@@ -180,10 +180,10 @@
                             <i class="fas fa-sun"></i>
                         </div>
                         <div class="timeline-content">
-                            <h3>Eco Legend</h3>
-                            <p>Save 500 kWh total</p>
-                            <span class="timeline-badge">+2000 Points</span>
-                            <span class="timeline-status">Locked</span>
+                            <h3>Legenda Lingkungan</h3>
+                            <p>Hemat 500 kWh total</p>
+                            <span class="timeline-badge">+2.000 Poin</span>
+                            <span class="timeline-status">Terkunci</span>
                         </div>
                     </div>
                 </div>
@@ -193,26 +193,26 @@
             <div class="modal" id="rewardModal">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2>Claim Reward</h2>
+                        <h2>Klaim Hadiah</h2>
                         <span class="close-modal">&times;</span>
                     </div>
                     <div class="modal-body">
                         <div class="reward-details">
-                            <img id="modalRewardImage" src="" alt="Reward Image" class="reward-image">
+                            <img id="modalRewardImage" src="" alt="Gambar Hadiah" class="reward-image">
                             <h3 id="modalRewardTitle"></h3>
                             <p id="modalRewardDescription"></p>
                             <div class="reward-cost">
                                 <i class="fas fa-leaf"></i>
-                                <span id="modalRewardPoints"></span> points
+                                <span id="modalRewardPoints"></span> poin
                             </div>
                         </div>
                         <div class="confirm-message">
-                            <p>Are you sure you want to claim this reward?</p>
+                            <p>Apakah Anda yakin ingin mengklaim hadiah ini?</p>
                         </div>
                     </div>
                     <div class="modal-actions">
-                        <button type="button" class="cancel-btn">Cancel</button>
-                        <button type="button" id="confirmClaimBtn" class="claim-btn">Claim Reward</button>
+                        <button type="button" class="cancel-btn">Batal</button>
+                        <button type="button" id="confirmClaimBtn" class="claim-btn">Klaim Hadiah</button>
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@
 
     <div id="chatPopup" class="chat-popup">
         <div id="chatHeader" class="chat-header">
-            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
             <div class="chat-controls">
                 <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
                 <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
@@ -234,7 +234,7 @@
             <!-- Chat messages will appear here -->
         </div>
         <div class="chat-input-container">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
             <button id="chatSendBtn" class="chat-send-btn">➤</button>
         </div>
     </div>

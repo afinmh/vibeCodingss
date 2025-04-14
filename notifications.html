@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications - Energy Dashboard</title>
+    <title>Notifikasi - Dashboard Energi</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/notifications.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -19,46 +19,46 @@
             
             <div class="user-profile">
                 <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
                     <h3>Afin Maulana</h3>
                 </a>
             </div>
 
             <nav class="menu">
                 <a href="index.html"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
-                <a href="notifications.html" class="active"><span class="icon">🔔</span> Notifications</a>
-                <a href="rewards.html"><span class="icon">🎁</span> Rewards</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
-                <a href="summary.html"><span class="icon">📈</span> Summary</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html" class="active"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
 
         <main class="main-content">
             <header>
-                <h1>Notifications</h1>
+                <h1>Notifikasi</h1>
                 <div class="header-right">
                     <select id="notificationFilter">
-                        <option value="all">All Notifications</option>
-                        <option value="info">Information</option>
-                        <option value="warning">Warnings</option>
-                        <option value="danger">Critical</option>
-                        <option value="unread">Unread</option>
+                        <option value="all">Semua Notifikasi</option>
+                        <option value="info">Informasi</option>
+                        <option value="warning">Peringatan</option>
+                        <option value="danger">Penting</option>
+                        <option value="unread">Belum Dibaca</option>
                     </select>
-                    <button id="markAllReadBtn" class="mark-read-btn">Mark All as Read</button>
-                    <button id="createTestNotifBtn" class="add-btn">+ Test Notification</button>
+                    <button id="markAllReadBtn" class="mark-read-btn">Tandai Semua Dibaca</button>
+                    <button id="createTestNotifBtn" class="add-btn">+ Uji Notifikasi</button>
                 </div>
             </header>
 
             <section class="notifications-overview">
                 <div class="section-header">
-                    <h2>Your Notifications</h2>
+                    <h2>Notifikasi Anda</h2>
                     <div class="actions">
-                        <input type="text" id="searchNotifications" placeholder="Search notifications...">
+                        <input type="text" id="searchNotifications" placeholder="Cari notifikasi...">
                         <div class="notification-count">
-                            <span id="unreadCount" class="count">0</span> unread
+                            <span id="unreadCount" class="count">0</span> belum dibaca
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="notifications-list" id="notificationsContainer">
                     <!-- Notifications will be populated here -->
                     <div class="no-notifications">
-                        <p>No notifications yet. Notifications about your energy usage and appliances will appear here.</p>
+                        <p>Belum ada notifikasi. Notifikasi tentang penggunaan energi dan perangkat Anda akan muncul di sini.</p>
                     </div>
                 </div>
             </section>
@@ -75,29 +75,29 @@
             <div class="modal" id="notificationModal">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2>Create Test Notification</h2>
+                        <h2>Buat Notifikasi Uji</h2>
                         <span class="close-modal">&times;</span>
                     </div>
                     <form id="notificationForm">
                         <div class="form-group">
-                            <label for="notificationTitle">Title</label>
+                            <label for="notificationTitle">Judul</label>
                             <input type="text" id="notificationTitle" required>
                         </div>
                         <div class="form-group">
-                            <label for="notificationMessage">Message</label>
+                            <label for="notificationMessage">Pesan</label>
                             <textarea id="notificationMessage" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="notificationType">Type</label>
+                            <label for="notificationType">Tipe</label>
                             <select id="notificationType" required>
-                                <option value="info">Information</option>
-                                <option value="warning">Warning</option>
-                                <option value="danger">Critical</option>
+                                <option value="info">Informasi</option>
+                                <option value="warning">Peringatan</option>
+                                <option value="danger">Penting</option>
                             </select>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="cancel-btn">Cancel</button>
-                            <button type="submit" class="save-btn">Create</button>
+                            <button type="button" class="cancel-btn">Batal</button>
+                            <button type="submit" class="save-btn">Buat</button>
                         </div>
                     </form>
                 </div>
@@ -110,7 +110,7 @@
 
     <div id="chatPopup" class="chat-popup">
         <div id="chatHeader" class="chat-header">
-            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
             <div class="chat-controls">
                 <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
                 <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
@@ -120,7 +120,7 @@
             <!-- Chat messages will appear here -->
         </div>
         <div class="chat-input-container">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
             <button id="chatSendBtn" class="chat-send-btn">➤</button>
         </div>
     </div>

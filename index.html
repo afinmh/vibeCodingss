@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Dashboard - Smart Home</title>
+    <title>Dashboard Energi - Rumah Pintar</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/chat.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
-    <button class="hamburger-menu" aria-label="Toggle Menu"></button>
+    <button class="hamburger-menu" aria-label="Alihkan Menu"></button>
     
     <div class="container">
         <aside class="sidebar">
@@ -21,39 +21,39 @@
             
             <div class="user-profile">
                 <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
                     <h3>Afin Maulana</h3>
                 </a>
             </div>
 
             <nav class="menu">
                 <a href="#" class="active"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html"><span class="icon">🔌</span> Appliances</a>
-                <a href="notifications.html"><span class="icon">🔔</span> Notifications</a>
-                <a href="rewards.html"><span class="icon">🎁</span> Rewards</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
-                <a href="summary.html"><span class="icon">📈</span> Summary</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
 
         <main class="main-content">
             <header>
-                <h1>Energy Dashboard</h1>
+                <h1>Dashboard Energi</h1>
                 <div class="header-right">
                     <select id="timeRange">
-                        <option>LAST 30 DAYS</option>
+                        <option>30 HARI TERAKHIR</option>
                     </select>
-                    <button class="updates-btn">🔔 2 NEW UPDATES</button>
+                    <button class="updates-btn">🔔 2 PEMBARUAN BARU</button>
                 </div>
             </header>
 
             <section class="cost-section">
                 <div class="section-header">
-                    <h2>Electric Cost: This Month</h2>
+                    <h2>Biaya Listrik: Bulan Ini</h2>
                     <div class="legend">
-                        <span class="electricity">Electricity</span>
+                        <span class="electricity">Listrik</span>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -64,24 +64,24 @@
             <div class="bottom-grid">
                 <section class="active-appliances">
                     <div class="section-header">
-                        <h2>Active Appliances</h2>
+                        <h2>Perangkat Aktif</h2>
                     </div>
                     <div class="appliance-list"></div>
                 </section>
 
                 <section class="weather-prediction">
                     <div class="section-header">
-                        <h2>Weather</h2>
+                        <h2>Cuaca</h2>
                     </div>
                     <div class="weather-info">
                         <div class="weather-icon">🌧️</div>
                         <div class="weather-details">
-                            <div class="weather-condition">Rainy</div>
+                            <div class="weather-condition">Hujan</div>
                             <div class="weather-temp">24°C</div>
                         </div>
                     </div>
                     <div class="prediction-advice">
-                        <p>Rainy, turn off the AC to save energy.</p>
+                        <p>Hujan, matikan AC untuk menghemat energi.</p>
                     </div>
                     <div class="chart-container">
                         <canvas id="weatherChart"></canvas>
@@ -90,7 +90,7 @@
 
                 <section class="prediction">
                     <div class="section-header">
-                        <h2>PowerPlan</h2>
+                        <h2>Rencana Hemat</h2>
                     </div>
                     <div class="prediction-content">
                         <div class="ai-recommendation">
@@ -129,7 +129,7 @@
 
     <div id="chatPopup" class="chat-popup">
         <div id="chatHeader" class="chat-header">
-            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
             <div class="chat-controls">
                 <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
                 <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
@@ -139,7 +139,7 @@
             <!-- Chat messages will appear here -->
         </div>
         <div class="chat-input-container">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
             <button id="chatSendBtn" class="chat-send-btn">➤</button>
         </div>
     </div>

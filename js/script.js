@@ -1,29 +1,29 @@
 // Sidebar Toggle Functionality - Disabled for desktop
 function initializeSidebar() {
-    // For now, we're disabling the sidebar toggle functionality
-    // We'll re-implement this for responsive design later
+    // Untuk saat ini, kita menonaktifkan fungsionalitas toggle sidebar
+    // Kita akan mengimplementasikan ini untuk desain responsif nanti
     
-    // Keep the sidebar visible at all times for desktop view
+    // Tetap menampilkan sidebar setiap saat untuk tampilan desktop
     const sidebar = document.querySelector('.sidebar');
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     
-    // Hide the hamburger menu on desktop
+    // Sembunyikan menu hamburger di desktop
     hamburgerMenu.style.display = 'none';
     
-    // Make sure the sidebar is visible
+    // Pastikan sidebar terlihat
     sidebar.classList.remove('show');
     
-    // Check for unread notifications and update the badge
+    // Periksa notifikasi yang belum dibaca dan perbarui badge
     updateNotificationBadge();
     
-    // We're keeping this code commented out for future mobile implementation
+    // Kita tetap menyimpan kode ini dikomentari untuk implementasi mobile di masa depan
     /*
     hamburgerMenu.addEventListener('click', () => {
         sidebar.classList.toggle('show');
         hamburgerMenu.classList.toggle('active');
         body.classList.toggle('sidebar-open');
         
-        // Update the hamburger button position when sidebar is shown/hidden
+        // Perbarui posisi tombol hamburger saat sidebar ditampilkan/disembunyikan
         if (sidebar.classList.contains('show')) {
             hamburgerMenu.style.transform = 'translateY(-50%) rotate(180deg)';
             hamburgerMenu.style.left = `calc(var(--sidebar-width) - 18px)`;
@@ -33,7 +33,7 @@ function initializeSidebar() {
         }
     });
 
-    // Close sidebar when clicking outside
+    // Tutup sidebar saat mengklik di luar
     document.addEventListener('click', (e) => {
         if (!sidebar.contains(e.target) && !hamburgerMenu.contains(e.target)) {
             sidebar.classList.remove('show');
@@ -46,26 +46,26 @@ function initializeSidebar() {
     */
 }
 
-// Check for unread notifications and update the badge in the menu
+// Periksa notifikasi yang belum dibaca dan perbarui badge di menu
 function updateNotificationBadge() {
-    // Get notifications from localStorage
+    // Dapatkan notifikasi dari localStorage
     const storedNotifications = localStorage.getItem('notifications');
     
     if (storedNotifications) {
         const notifications = JSON.parse(storedNotifications);
         const unreadCount = notifications.filter(notification => !notification.read).length;
         
-        // Update the notifications menu item if there are unread notifications
+        // Perbarui item menu notifikasi jika ada notifikasi yang belum dibaca
         if (unreadCount > 0) {
             const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
             if (notificationMenuItem) {
                 notificationMenuItem.innerHTML = `🔔<span class="badge">${unreadCount}</span>`;
             }
             
-            // Also update the updates button in header if present
+            // Juga perbarui tombol pembaruan di header jika ada
             const updatesBtn = document.querySelector('.updates-btn');
             if (updatesBtn) {
-                updatesBtn.textContent = `🔔 ${unreadCount} NEW UPDATES`;
+                updatesBtn.textContent = `🔔 ${unreadCount} PEMBARUAN BARU`;
                 updatesBtn.addEventListener('click', () => {
                     window.location.href = 'notifications.html';
                 });
@@ -74,12 +74,12 @@ function updateNotificationBadge() {
     }
 }
 
-// Data for the cost chart
+// Data untuk grafik biaya
 const costData = {
-    labels: ['Mar 1', 'Mar 2', 'Mar 3', 'Mar 4', 'Mar 5', 'Mar 6', 'Mar 7', 'Mar 8', 'Mar 9', 'Mar 10', 'Mar 11'],
+    labels: ['1 Mar', '2 Mar', '3 Mar', '4 Mar', '5 Mar', '6 Mar', '7 Mar', '8 Mar', '9 Mar', '10 Mar', '11 Mar'],
     datasets: [
         {
-            label: 'Electricity',
+            label: 'Listrik',
             data: [40000, 30000, 50000, 40000, 60000, 50000, 40000, 30000, 40000, 40000, 70000],
             backgroundColor: function(context) {
                 const chart = context.chart;
@@ -102,11 +102,11 @@ const costData = {
     ]
 };
 
-// Data for the usage estimate chart
+// Data untuk grafik perkiraan penggunaan
 const usageData = {
-    labels: ['Mar 1', 'Mar 3', 'Mar 5', 'Mar 7', 'Mar 9'],
+    labels: ['1 Mar', '3 Mar', '5 Mar', '7 Mar', '9 Mar'],
     datasets: [{
-        label: 'Usage',
+        label: 'Penggunaan',
         data: [150, 170, 190, 218, 240],
         borderColor: '#f87171',
         backgroundColor: 'rgba(248, 113, 113, 0.1)',
@@ -115,11 +115,11 @@ const usageData = {
     }]
 };
 
-// Data for the weather prediction chart
+// Data untuk grafik prediksi cuaca
 const weatherData = {
     labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
     datasets: [{
-        label: 'Predicted Usage',
+        label: 'Prediksi Penggunaan',
         data: [1, 1, 2, 2, 3, 2, 2, 1],
         borderColor: '#7e57c2',
         backgroundColor: 'rgba(126, 87, 194, 0.1)',
@@ -128,22 +128,22 @@ const weatherData = {
     }]
 };
 
-// Appliances data
+// Data peralatan
 let appliances = [];
 
-// Load appliances from localStorage
+// Muat peralatan dari localStorage
 function loadActiveAppliances() {
     const storedAppliances = localStorage.getItem('appliances');
     if (storedAppliances) {
         const allAppliances = JSON.parse(storedAppliances);
         const activeAppliances = allAppliances.filter(appliance => appliance.status === 'active');
         
-        // Calculate total power usage for percentage calculation
+        // Hitung total penggunaan daya untuk perhitungan persentase
         const totalPowerUsage = activeAppliances.reduce((total, appliance) => total + (appliance.powerUsage * appliance.usageHours), 0);
         
-        // Transform the data to include usage and percentage
+        // Transformasi data untuk menyertakan penggunaan dan persentase
         appliances = activeAppliances.map(appliance => {
-            const dailyUsage = (appliance.powerUsage * appliance.usageHours) / 1000; // Convert to kWh
+            const dailyUsage = (appliance.powerUsage * appliance.usageHours) / 1000; // Konversi ke kWh
             const percentage = Math.round((appliance.powerUsage * appliance.usageHours / totalPowerUsage) * 100);
             
             return {
@@ -155,16 +155,16 @@ function loadActiveAppliances() {
             };
         });
     } else {
-        // If no data in localStorage, use default data
+        // Jika tidak ada data di localStorage, gunakan data default
         appliances = [
-            { id: 1, name: 'Air Conditioner', usage: '1.2 kWh', percentage: 70, status: 'active' },
-            { id: 2, name: 'Refrigerator', usage: '0.9 kWh', percentage: 45, status: 'active' },
-            { id: 5, name: 'LED Lights', usage: '0.8 kWh', percentage: 40, status: 'active' }
+            { id: 1, name: 'AC', usage: '1.2 kWh', percentage: 70, status: 'active' },
+            { id: 2, name: 'Kulkas', usage: '0.9 kWh', percentage: 45, status: 'active' },
+            { id: 5, name: 'Lampu LED', usage: '0.8 kWh', percentage: 40, status: 'active' }
         ];
     }
 }
 
-// Toggle appliance status
+// Toggle status peralatan
 function toggleApplianceStatus(applianceId) {
     const storedAppliances = localStorage.getItem('appliances');
     if (storedAppliances) {
@@ -179,7 +179,7 @@ function toggleApplianceStatus(applianceId) {
     }
 }
 
-// Render active appliances
+// Render peralatan aktif
 function renderActiveAppliances() {
     const appliancesList = document.querySelector('.appliance-list');
     appliancesList.innerHTML = appliances.map(appliance => `
@@ -198,7 +198,7 @@ function renderActiveAppliances() {
     `).join('');
 }
 
-// Chart options
+// Opsi grafik
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -226,12 +226,12 @@ const chartOptions = {
     }
 };
 
-// Initialize everything when script loads
+// Inisialisasi semuanya saat skrip dimuat
 initializeSidebar();
 loadActiveAppliances();
 renderActiveAppliances();
 
-// Initialize the cost chart
+// Inisialisasi grafik biaya
 const costChart = new Chart(document.getElementById('costChart'), {
     type: 'bar',
     data: costData,
@@ -249,14 +249,14 @@ const costChart = new Chart(document.getElementById('costChart'), {
     }
 });
 
-// Initialize the usage estimate chart
+// Inisialisasi grafik perkiraan penggunaan
 const usageChart = new Chart(document.getElementById('usageChart'), {
     type: 'line',
     data: usageData,
     options: chartOptions
 });
 
-// Initialize the weather prediction chart
+// Inisialisasi grafik prediksi cuaca
 const weatherChart = new Chart(document.getElementById('weatherChart'), {
     type: 'line',
     data: weatherData,

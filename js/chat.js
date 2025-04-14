@@ -1,4 +1,4 @@
-// Get DOM elements
+// Dapatkan elemen DOM
 const chatPopup = document.getElementById('chatPopup');
 const chatHeader = document.getElementById('chatHeader');
 const chatToggleBtn = document.getElementById('chatToggleBtn');
@@ -8,36 +8,36 @@ const chatInput = document.getElementById('chatInput');
 const chatSendBtn = document.getElementById('chatSendBtn');
 const chatBody = document.getElementById('chatBody');
 
-// API credentials storage
+// Penyimpanan kredensial API
 const apiKeyStorageKey = 'mistralApiKey';
 
-// Default system prompt for electricity assistant
-const defaultSystemPrompt = `You are an electricity assistant for a smart home energy dashboard.
-Your role is to help users understand their energy usage, provide tips for energy conservation, 
-answer questions about their appliances, and suggest ways to reduce their electricity bills.
-Be friendly, helpful, and provide specific advice when possible.
-Base your responses on common energy-saving principles and smart home energy management.`;
+// Prompt sistem default untuk asisten listrik
+const defaultSystemPrompt = `Kamu adalah asisten listrik untuk dashboard energi rumah pintar.
+Peranmu adalah membantu pengguna memahami penggunaan energi mereka, memberikan tips untuk penghematan energi, 
+menjawab pertanyaan tentang perangkat mereka, dan menyarankan cara untuk mengurangi tagihan listrik mereka.
+Bersikaplah ramah, membantu, dan berikan saran spesifik bila memungkinkan.
+Dasarkan tanggapanmu pada prinsip penghematan energi umum dan pengelolaan energi rumah pintar.`;
 
-// Check if API key is set
+// Periksa apakah kunci API diatur
 const hasApiKey = Boolean(localStorage.getItem(apiKeyStorageKey));
 
-// Add settings button to chat header
+// Tambahkan tombol pengaturan ke header chat
 const chatControls = document.querySelector('.chat-controls');
 const settingsBtn = document.createElement('button');
 settingsBtn.id = 'chatSettingsBtn';
 settingsBtn.className = 'chat-control-btn';
 settingsBtn.innerHTML = '⚙️';
-settingsBtn.title = 'API Settings';
+settingsBtn.title = 'Pengaturan API';
 chatControls.insertBefore(settingsBtn, chatControls.firstChild);
 
-// Settings button click event
+// Event klik tombol pengaturan
 settingsBtn.addEventListener('click', showApiSettings);
 
-// Check local storage for chat visibility state
+// Periksa penyimpanan lokal untuk status visibilitas chat
 const isChatVisible = localStorage.getItem('chatVisible') === 'true';
 const isChatCollapsed = localStorage.getItem('chatCollapsed') === 'true';
 
-// Set initial visibility based on stored state
+// Atur visibilitas awal berdasarkan status tersimpan
 if (isChatVisible) {
     chatPopup.style.display = 'flex';
     chatToggleBtn.classList.add('hidden');
@@ -50,64 +50,64 @@ if (isChatVisible) {
     chatToggleBtn.classList.remove('hidden');
 }
 
-// Toggle chat popup when the toggle button is clicked
+// Beralih popup chat saat tombol alih diklik
 chatToggleBtn.addEventListener('click', () => {
     chatPopup.style.display = 'flex';
     chatToggleBtn.classList.add('hidden');
     localStorage.setItem('chatVisible', 'true');
     
-    // Load chat messages from localStorage
+    // Muat pesan chat dari localStorage
     loadChatMessages();
     
-    // Check if API key is set
+    // Periksa apakah kunci API diatur
     if (!hasApiKey) {
         setTimeout(showApiSettings, 1000);
     }
 });
 
-// Close chat popup
+// Tutup popup chat
 chatCloseBtn.addEventListener('click', () => {
     chatPopup.style.display = 'none';
     chatToggleBtn.classList.remove('hidden');
     localStorage.setItem('chatVisible', 'false');
 });
 
-// Collapse/expand chat popup
+// Ciutkan/perluas popup chat
 chatCollapseBtn.addEventListener('click', () => {
     chatPopup.classList.toggle('collapsed');
     
-    // Update icon based on state
+    // Perbarui ikon berdasarkan status
     const isCollapsed = chatPopup.classList.contains('collapsed');
     chatCollapseBtn.textContent = isCollapsed ? '🔽' : '🔼';
     localStorage.setItem('chatCollapsed', isCollapsed.toString());
 });
 
-// Toggle chat popup when the header is clicked
+// Beralih popup chat saat header diklik
 chatHeader.addEventListener('click', (e) => {
-    // Prevent toggle when clicking on control buttons
+    // Cegah beralih saat mengklik tombol kontrol
     if (!e.target.closest('.chat-controls')) {
         chatPopup.classList.toggle('collapsed');
         
-        // Update icon based on state
+        // Perbarui ikon berdasarkan status
         const isCollapsed = chatPopup.classList.contains('collapsed');
         chatCollapseBtn.textContent = isCollapsed ? '🔽' : '🔼';
         localStorage.setItem('chatCollapsed', isCollapsed.toString());
     }
 });
 
-// Send message when clicking the send button
+// Kirim pesan saat mengklik tombol kirim
 chatSendBtn.addEventListener('click', sendMessage);
 
-// Send message when pressing Enter in the input field
+// Kirim pesan saat menekan Enter di bidang input
 chatInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         sendMessage();
     }
 });
 
-// Show API settings modal
+// Tampilkan modal pengaturan API
 function showApiSettings() {
-    // Create modal if it doesn't exist
+    // Buat modal jika belum ada
     let apiModal = document.getElementById('apiSettingsModal');
     
     if (!apiModal) {
@@ -120,18 +120,18 @@ function showApiSettings() {
         apiModal.innerHTML = `
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>API Settings</h2>
+                    <h2>Pengaturan API</h2>
                     <span class="close-modal" id="closeApiModal">&times;</span>
                 </div>
                 <form id="apiSettingsForm">
                     <div class="form-group">
-                        <label for="apiKey">Mistral API Key</label>
+                        <label for="apiKey">Kunci API Mistral</label>
                         <input type="password" id="apiKey" value="${currentApiKey}" required>
-                        <small>Get your API key from <a href="https://mistral.ai" target="_blank">Mistral AI</a></small>
+                        <small>Dapatkan kunci API Anda dari <a href="https://mistral.ai" target="_blank">Mistral AI</a></small>
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="cancel-btn" id="cancelApiSettings">Cancel</button>
-                        <button type="submit" class="save-btn">Save</button>
+                        <button type="button" class="cancel-btn" id="cancelApiSettings">Batal</button>
+                        <button type="submit" class="save-btn">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -139,7 +139,7 @@ function showApiSettings() {
         
         document.body.appendChild(apiModal);
         
-        // Add event listeners for the modal
+        // Tambahkan event listener untuk modal
         document.getElementById('closeApiModal').addEventListener('click', () => {
             apiModal.classList.remove('show');
         });
@@ -154,7 +154,7 @@ function showApiSettings() {
             
             if (apiKey) {
                 localStorage.setItem(apiKeyStorageKey, apiKey);
-                addSystemMessage("API key saved. You can now chat with your energy assistant!");
+                addSystemMessage("Kunci API disimpan. Anda sekarang dapat mengobrol dengan asisten energi Anda!");
             } else {
                 localStorage.removeItem(apiKeyStorageKey);
             }
@@ -163,78 +163,78 @@ function showApiSettings() {
         });
     }
     
-    // Show the modal
+    // Tampilkan modal
     apiModal.classList.add('show');
 }
 
-// Function to add a system message (different styling)
+// Fungsi untuk menambahkan pesan sistem (gaya berbeda)
 function addSystemMessage(text) {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'chat-message system';
     messageDiv.textContent = text;
     chatBody.appendChild(messageDiv);
     
-    // Scroll to the bottom
+    // Gulir ke bawah
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Load chat messages from localStorage
+// Muat pesan chat dari localStorage
 function loadChatMessages() {
-    // Clear existing messages first
+    // Hapus pesan yang ada terlebih dahulu
     chatBody.innerHTML = '';
     
-    // Get messages from localStorage
+    // Dapatkan pesan dari localStorage
     const storedMessages = localStorage.getItem('chatMessages');
     let messages = [];
     
     if (storedMessages) {
         messages = JSON.parse(storedMessages);
         
-        // Render the messages
+        // Render pesan
         messages.forEach(message => {
             addMessageToUI(message.text, message.sender);
         });
     } else {
-        // Add welcome message if no messages exist
+        // Tambahkan pesan selamat datang jika tidak ada pesan
         addWelcomeMessage();
     }
 }
 
-// Function to add welcome message
+// Fungsi untuk menambahkan pesan selamat datang
 function addWelcomeMessage() {
     const welcomeDiv = document.createElement('div');
     welcomeDiv.className = 'welcome-message';
     welcomeDiv.innerHTML = `
-        <p>👋 Hi there! I'm your Energy Assistant.</p>
-        <p>How can I help you today?</p>
+        <p>👋 Halo! Saya adalah Asisten Energi Anda.</p>
+        <p>Ada yang bisa saya bantu hari ini?</p>
     `;
     chatBody.appendChild(welcomeDiv);
     
-    // Add initial AI message
+    // Tambahkan pesan AI awal
     setTimeout(() => {
-        addMessage('Ask me anything about your energy usage, appliances, or how to save energy!', 'ai');
+        addMessage('Tanyakan apa saja tentang penggunaan energi, perangkat, atau cara menghemat energi!', 'ai');
         
-        // If no API key is set, prompt the user
+        // Jika tidak ada kunci API yang diatur, beri tahu pengguna
         if (!localStorage.getItem(apiKeyStorageKey)) {
             setTimeout(() => {
-                addSystemMessage('⚠️ Please set your Mistral API key in the settings to enable AI responses');
+                addSystemMessage('⚠️ Silakan atur kunci API Mistral di pengaturan untuk mengaktifkan respons AI');
             }, 1000);
         }
     }, 1000);
 }
 
-// Function to add a message to localStorage and UI
+// Fungsi untuk menambahkan pesan ke localStorage dan UI
 function addMessage(text, sender) {
-    // Save message to localStorage
+    // Simpan pesan ke localStorage
     saveMessageToStorage(text, sender);
     
-    // Add to UI
+    // Tambahkan ke UI
     addMessageToUI(text, sender);
 }
 
-// Function to save a message to localStorage
+// Fungsi untuk menyimpan pesan ke localStorage
 function saveMessageToStorage(text, sender) {
-    // Get existing messages
+    // Dapatkan pesan yang ada
     const storedMessages = localStorage.getItem('chatMessages');
     let messages = [];
     
@@ -242,20 +242,20 @@ function saveMessageToStorage(text, sender) {
         messages = JSON.parse(storedMessages);
     }
     
-    // Add new message with timestamp
+    // Tambahkan pesan baru dengan timestamp
     messages.push({
         text: text,
         sender: sender,
         timestamp: new Date().toISOString()
     });
     
-    // Save back to localStorage
+    // Simpan kembali ke localStorage
     localStorage.setItem('chatMessages', JSON.stringify(messages));
 }
 
-// Function to add a message to the UI only
+// Fungsi untuk menambahkan pesan ke UI saja
 function addMessageToUI(text, sender) {
-    // Remove welcome message if it exists
+    // Hapus pesan selamat datang jika ada
     const welcomeMessage = chatBody.querySelector('.welcome-message');
     if (welcomeMessage) {
         welcomeMessage.remove();
@@ -266,24 +266,24 @@ function addMessageToUI(text, sender) {
     messageDiv.textContent = text;
     chatBody.appendChild(messageDiv);
     
-    // Scroll to the bottom
+    // Gulir ke bawah
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Function to add a loading indicator while waiting for the AI response
+// Fungsi untuk menambahkan indikator loading saat menunggu respons AI
 function showLoadingIndicator() {
     const loadingDiv = document.createElement('div');
     loadingDiv.className = 'chat-message ai loading';
     loadingDiv.id = 'aiLoading';
-    loadingDiv.textContent = 'Thinking...';
+    loadingDiv.textContent = 'Berpikir...';
     chatBody.appendChild(loadingDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
     
-    // Animate the dots
+    // Animasi titik-titik
     let dots = 0;
     const loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        loadingDiv.textContent = 'Thinking' + '.'.repeat(dots);
+        loadingDiv.textContent = 'Berpikir' + '.'.repeat(dots);
     }, 500);
     
     return {
@@ -294,7 +294,7 @@ function showLoadingIndicator() {
     };
 }
 
-// Get chat history for Mistral API context
+// Dapatkan riwayat chat untuk konteks API Mistral
 function getChatHistory() {
     const storedMessages = localStorage.getItem('chatMessages');
     let messages = [];
@@ -302,7 +302,7 @@ function getChatHistory() {
     if (storedMessages) {
         const parsedMessages = JSON.parse(storedMessages);
         
-        // Convert to Mistral format (skip system messages)
+        // Konversi ke format Mistral (lewati pesan sistem)
         messages = parsedMessages
             .filter(msg => msg.sender !== 'system')
             .map(msg => ({
@@ -314,19 +314,19 @@ function getChatHistory() {
     return messages;
 }
 
-// Call Mistral API for chat completions
+// Panggil API Mistral untuk penyelesaian chat
 async function callMistralAPI(userMessage) {
     const apiKey = localStorage.getItem(apiKeyStorageKey);
     
     if (!apiKey) {
-        return "Please set your Mistral API key in the settings to enable AI responses";
+        return "Silakan atur kunci API Mistral di pengaturan untuk mengaktifkan respons AI";
     }
     
     try {
-        // Get chat history
+        // Dapatkan riwayat chat
         const messages = getChatHistory();
         
-        // Prepare the request
+        // Siapkan permintaan
         const requestBody = {
             model: "mistral-small",
             messages: [
@@ -337,7 +337,7 @@ async function callMistralAPI(userMessage) {
             max_tokens: 800
         };
         
-        // Make the API call
+        // Buat panggilan API
         const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -349,69 +349,69 @@ async function callMistralAPI(userMessage) {
         
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Mistral API error:', errorData);
-            return `Error: ${errorData.error?.message || 'Failed to get response from Mistral AI'}`;
+            console.error('Kesalahan API Mistral:', errorData);
+            return `Kesalahan: ${errorData.error?.message || 'Gagal mendapatkan respons dari Mistral AI'}`;
         }
         
         const data = await response.json();
         
-        // Return the AI response
+        // Kembalikan respons AI
         return data.choices[0].message.content.trim();
         
     } catch (error) {
-        console.error('Error calling Mistral API:', error);
-        return "Sorry, there was an error connecting to the AI service. Please try again later.";
+        console.error('Kesalahan memanggil API Mistral:', error);
+        return "Maaf, terjadi kesalahan saat menghubungkan ke layanan AI. Silakan coba lagi nanti.";
     }
 }
 
-// Function to send a message
+// Fungsi untuk mengirim pesan
 async function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
-        // Add user message
+        // Tambahkan pesan pengguna
         addMessage(message, 'user');
         
-        // Clear input
+        // Bersihkan input
         chatInput.value = '';
         
-        // Show loading indicator
+        // Tampilkan indikator loading
         const loading = showLoadingIndicator();
         
         try {
-            // Get API response
+            // Dapatkan respons API
             const apiKey = localStorage.getItem(apiKeyStorageKey);
             
             if (!apiKey) {
                 loading.remove();
-                addSystemMessage('⚠️ Please set your Mistral API key in the settings to enable AI responses');
+                addSystemMessage('⚠️ Silakan atur kunci API Mistral di pengaturan untuk mengaktifkan respons AI');
                 return;
             }
             
             const aiResponse = await callMistralAPI(message);
             
-            // Remove loading indicator
+            // Hapus indikator loading
             loading.remove();
             
-            // Add AI response
+            // Tambahkan respons AI
             addMessage(aiResponse, 'ai');
             
         } catch (error) {
-            console.error('Error getting AI response:', error);
+            console.error('Kesalahan mendapatkan respons AI:', error);
             loading.remove();
-            addMessage("Sorry, I encountered an error. Please try again later.", 'ai');
+            addMessage("Maaf, saya mengalami kesalahan. Silakan coba lagi nanti.", 'ai');
         }
     }
 }
 
-// If chat is visible and not collapsed, load messages
+// Jika chat terlihat dan tidak diciutkan, muat pesan
 if (isChatVisible && !isChatCollapsed) {
     loadChatMessages();
 }
 
-// Add a convenience method to clear chat history
+// Tambahkan metode kenyamanan untuk menghapus riwayat chat
 window.clearChatHistory = function() {
     localStorage.removeItem('chatMessages');
     chatBody.innerHTML = '';
     addWelcomeMessage();
-    alert('Chat history has been cleared!');
+    alert('Riwayat chat telah dihapus!');
 };

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appliances Management - Energy Dashboard</title>
+    <title>Manajemen Perangkat - Dashboard Energi</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/appliances.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -19,44 +19,44 @@
             
             <div class="user-profile">
                 <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="User Avatar" class="avatar">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
                     <h3>Afin Maulana</h3>
                 </a>
             </div>
 
             <nav class="menu">
                 <a href="index.html"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html" class="active"><span class="icon">🔌</span> Appliances</a>
-                <a href="notifications.html"><span class="icon">🔔</span> Notifications</a>
-                <a href="rewards.html"><span class="icon">🎁</span> Rewards</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Leaderboard</a> -->
-                <a href="summary.html"><span class="icon">📈</span> Summary</a>
+                <a href="appliances.html" class="active"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Log out</a>
+            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
 
         <main class="main-content">
             <header>
-                <h1>Appliances Management</h1>
+                <h1>Manajemen Perangkat</h1>
                 <div class="header-right">
                     <select id="roomFilter">
-                        <option value="all">All Rooms</option>
-                        <option value="living-room">Living Room</option>
-                        <option value="kitchen">Kitchen</option>
-                        <option value="bedroom">Bedroom</option>
-                        <option value="bathroom">Bathroom</option>
-                        <option value="office">Home Office</option>
+                        <option value="all">Semua Ruangan</option>
+                        <option value="living-room">Ruang Tamu</option>
+                        <option value="kitchen">Dapur</option>
+                        <option value="bedroom">Kamar Tidur</option>
+                        <option value="bathroom">Kamar Mandi</option>
+                        <option value="office">Kantor Rumah</option>
                     </select>
-                    <button id="addApplianceBtn" class="add-btn">+ Add Appliance</button>
+                    <button id="addApplianceBtn" class="add-btn">+ Tambah Perangkat</button>
                 </div>
             </header>
 
             <section class="appliances-overview">
                 <div class="section-header">
-                    <h2>Your Appliances</h2>
+                    <h2>Perangkat Anda</h2>
                     <div class="actions">
-                        <input type="text" id="searchAppliances" placeholder="Search appliances...">
+                        <input type="text" id="searchAppliances" placeholder="Cari perangkat...">
                         <div class="view-options">
                             <span class="view-option active" data-view="grid">📱</span>
                             <span class="view-option" data-view="list">📃</span>
@@ -73,55 +73,55 @@
             <div class="modal" id="applianceModal">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2>Add New Appliance</h2>
+                        <h2>Tambah Perangkat Baru</h2>
                         <span class="close-modal">&times;</span>
                     </div>
                     <form id="applianceForm">
                         <div class="form-group">
-                            <label for="applianceName">Appliance Name</label>
+                            <label for="applianceName">Nama Perangkat</label>
                             <input type="text" id="applianceName" required>
                         </div>
                         <div class="form-group">
-                            <label for="applianceType">Type</label>
+                            <label for="applianceType">Tipe</label>
                             <select id="applianceType" required>
-                                <option value="">Select Type</option>
-                                <option value="lighting">Lighting</option>
-                                <option value="heating">Heating</option>
-                                <option value="cooling">Cooling</option>
-                                <option value="kitchen">Kitchen</option>
-                                <option value="entertainment">Entertainment</option>
-                                <option value="other">Other</option>
+                                <option value="">Pilih Tipe</option>
+                                <option value="lighting">Pencahayaan</option>
+                                <option value="heating">Pemanas</option>
+                                <option value="cooling">Pendingin</option>
+                                <option value="kitchen">Dapur</option>
+                                <option value="entertainment">Hiburan</option>
+                                <option value="other">Lainnya</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="applianceRoom">Room</label>
+                            <label for="applianceRoom">Ruangan</label>
                             <select id="applianceRoom" required>
-                                <option value="">Select Room</option>
-                                <option value="living-room">Living Room</option>
-                                <option value="kitchen">Kitchen</option>
-                                <option value="bedroom">Bedroom</option>
-                                <option value="bathroom">Bathroom</option>
-                                <option value="office">Home Office</option>
+                                <option value="">Pilih Ruangan</option>
+                                <option value="living-room">Ruang Tamu</option>
+                                <option value="kitchen">Dapur</option>
+                                <option value="bedroom">Kamar Tidur</option>
+                                <option value="bathroom">Kamar Mandi</option>
+                                <option value="office">Kantor Rumah</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="powerUsage">Power Usage (Watts)</label>
+                            <label for="powerUsage">Penggunaan Daya (Watt)</label>
                             <input type="number" id="powerUsage" required min="1">
                         </div>
                         <div class="form-group">
-                            <label for="usageHours">Average Usage (hours/day)</label>
+                            <label for="usageHours">Rata-rata Penggunaan (jam/hari)</label>
                             <input type="number" id="usageHours" required min="0" max="24" step="0.5">
                         </div>
                         <div class="form-group">
                             <label for="applianceStatus">Status</label>
                             <select id="applianceStatus" required>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Tidak Aktif</option>
                             </select>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="cancel-btn">Cancel</button>
-                            <button type="submit" class="save-btn">Save</button>
+                            <button type="button" class="cancel-btn">Batal</button>
+                            <button type="submit" class="save-btn">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -134,7 +134,7 @@
 
     <div id="chatPopup" class="chat-popup">
         <div id="chatHeader" class="chat-header">
-            <h3><span class="chat-icon">🤖</span> Energy Assistant</h3>
+            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
             <div class="chat-controls">
                 <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
                 <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
@@ -144,7 +144,7 @@
             <!-- Chat messages will appear here -->
         </div>
         <div class="chat-input-container">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here...">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
             <button id="chatSendBtn" class="chat-send-btn">➤</button>
         </div>
     </div>
