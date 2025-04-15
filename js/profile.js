@@ -1,6 +1,7 @@
 // Inisialisasi grafik ketika halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     initializeConsumptionChart();
+    loadNotificationBadge(); // Menambahkan badge notifikasi
 });
 
 // Inisialisasi grafik perbandingan konsumsi
@@ -50,4 +51,23 @@ function initializeConsumptionChart() {
             }
         }
     });
+}
+
+// Fungsi untuk menampilkan badge notifikasi
+function loadNotificationBadge() {
+    // Ambil data notifikasi dari localStorage
+    const storedNotifications = localStorage.getItem('notifications');
+    
+    if (storedNotifications) {
+        const notificationsData = JSON.parse(storedNotifications);
+        const unreadCount = notificationsData.filter(notification => !notification.read).length;
+        
+        // Tampilkan badge hanya jika ada notifikasi yang belum dibaca
+        if (unreadCount > 0) {
+            const notificationMenuItem = document.querySelector('.menu a[href="notifications.html"] .icon');
+            if (notificationMenuItem) {
+                notificationMenuItem.innerHTML = `🔔 <span class="badge">${unreadCount}</span>`;
+            }
+        }
+    }
 }
