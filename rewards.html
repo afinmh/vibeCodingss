@@ -9,6 +9,38 @@
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const user = localStorage.getItem('energyai_user') || sessionStorage.getItem('energyai_user');
+            if (!user) {
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // Run auth check when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkAuth()) {
+                const userData = JSON.parse(localStorage.getItem('energyai_user') || sessionStorage.getItem('energyai_user'));
+                // Update user name in sidebar if available
+                const userNameElement = document.querySelector('.user-profile h3');
+                if (userNameElement && userData.name) {
+                    userNameElement.textContent = userData.name;
+                }
+            }
+        });
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('energyai_user');
+                sessionStorage.removeItem('energyai_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -26,7 +58,7 @@
             </div>
 
             <nav class="menu">
-                <a href="index.html"><span class="icon">📊</span> Dashboard</a>
+                <a href="home.html"><span class="icon">📊</span> Dashboard</a>
                 <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
                 <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
                 <a href="rewards.html" class="active"><span class="icon">🎁</span> Hadiah</a>
@@ -34,7 +66,7 @@
                 <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
             </nav>
 
-            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
+             <a href="#" onclick="logout()" class="logout"><span class="icon">🚪</span> Keluar</a>
         </aside>
 
         <main class="main-content">

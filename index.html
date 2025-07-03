@@ -1,151 +1,257 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Energi - Rumah Pintar</title>
+    <title>EnergyAI - Smart Energy Management</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/chat.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link rel="stylesheet" href="css/landing.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-    <button class="hamburger-menu" aria-label="Alihkan Menu"></button>
-    
-    <div class="container">
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="assets/logo.png" alt="Smart Fusion">
-                <span>EnergiAI</span>
+<body class="landing-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.png" alt="EnergyAI Logo" class="logo-img">
+                <span class="logo-text">EnergyAI</span>
             </div>
-            
-            <div class="user-profile">
-                <a href="profile.html" class="profile-link">
-                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
-                    <h3>Afin Maulana</h3>
-                </a>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="login-btn" onclick="openLoginModal()">Login</button>
+                <button class="signup-btn" onclick="openSignupModal()">Sign Up</button>
             </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-            <nav class="menu">
-                <a href="#" class="active"><span class="icon">📊</span> Dashboard</a>
-                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
-                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
-                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
-                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
-                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
-            </nav>
-
-            <a href="#" class="logout"><span class="icon">🚪</span> Keluar</a>
-        </aside>
-
-        <main class="main-content">
-            <header>
-                <h1>Dashboard Energi</h1>
-                <div class="header-right">
-                    <select id="timeRange">
-                        <option>30 HARI TERAKHIR</option>
-                    </select>
-                    <button class="updates-btn">🔔 2 PEMBARUAN BARU</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Smart Energy Management with AI</h1>
+                <p class="hero-subtitle">Monitor, optimize, and reduce your energy consumption with our intelligent AI-powered platform. Save money and help the environment.</p>
+                <div class="hero-buttons">
+                    <button class="cta-primary" onclick="openSignupModal()">Get Started Free</button>
+                    <button class="cta-secondary" onclick="openLoginModal()">Login to Dashboard</button>
                 </div>
-            </header>
-
-            <section class="cost-section">
-                <div class="section-header">
-                    <h2>Biaya Listrik: Bulan Ini</h2>
-                    <div class="legend">
-                        <span class="electricity">Listrik</span>
+            </div>
+            <div class="hero-image">
+                <div class="energy-visualization">
+                    <div class="energy-circle">
+                        <i class="fas fa-bolt"></i>
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay-1"></div>
+                        <div class="pulse-ring delay-2"></div>
                     </div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="costChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container-section">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Track your energy consumption in real-time with detailed analytics and insights.</p>
                 </div>
-            </section>
-
-            <div class="bottom-grid">
-                <section class="active-appliances">
-                    <div class="section-header">
-                        <h2>Perangkat Aktif</h2>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="appliance-list"></div>
-                </section>
-
-                <section class="weather-prediction">
-                    <div class="section-header">
-                        <h2>Cuaca</h2>
+                    <h3>AI Optimization</h3>
+                    <p>Our AI automatically optimizes your energy usage patterns to maximize savings.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <div class="weather-info">
-                        <div class="weather-icon">🌧️</div>
-                        <div class="weather-details">
-                            <div class="weather-condition">Hujan</div>
-                            <div class="weather-temp">24°C</div>
+                    <h3>Smart Controls</h3>
+                    <p>Control your appliances remotely and set intelligent schedules.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Eco-Friendly</h3>
+                    <p>Reduce your carbon footprint with sustainable energy recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container-section">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About EnergyAI</h2>
+                    <p>EnergyAI is a cutting-edge platform that combines artificial intelligence with energy management to help homes and businesses optimize their energy consumption. Our smart algorithms learn from your usage patterns and provide personalized recommendations to reduce costs and environmental impact.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>30%</h3>
+                            <p>Average Energy Savings</p>
+                        </div>
+                        <div class="stat">
+                            <h3>10k+</h3>
+                            <p>Happy Users</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>Monitoring & Support</p>
                         </div>
                     </div>
-                    <div class="prediction-advice">
-                        <p>Hujan, matikan AC untuk menghemat energi.</p>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="weatherChart"></canvas>
-                    </div>
-                </section>
-
-                <section class="prediction">
-                    <div class="section-header">
-                        <h2>Rencana Hemat</h2>
-                    </div>
-                    <div class="prediction-content">
-                        <div class="ai-recommendation">
-                            <div class="recommendation-list">
-                                <div class="recommendation-item">
-                                    <div class="recommendation-text">
-                                        <p>Matikan AC 1 jam lebih cepat setiap hari</p>
-                                        <span class="savings">Hemat: 10 kWh/bulan</span>
-                                    </div>
-                                    <button class="apply-btn">Terapkan</button>
-                                </div>
-                                <div class="recommendation-item">
-                                    <div class="recommendation-text">
-                                        <p>Gunakan timer untuk mesin cuci di malam hari</p>
-                                        <span class="savings">Hemat: 5 kWh/bulan</span>
-                                    </div>
-                                    <button class="apply-btn">Terapkan</button>
-                                </div>
-                                <div class="recommendation-item">
-                                    <div class="recommendation-text">
-                                        <p>Atur suhu kulkas ke level optimal</p>
-                                        <span class="savings">Hemat: 3 kWh/bulan</span>
-                                    </div>
-                                    <button class="apply-btn">Terapkan</button>
-                                </div>
+                </div>
+                <div class="about-image">
+                    <div class="dashboard-preview">
+                        <div class="preview-header">
+                            <div class="preview-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-chart"></div>
+                            <div class="preview-widgets">
+                                <div class="widget"></div>
+                                <div class="widget"></div>
+                                <div class="widget"></div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
-        </main>
-    </div>
-
-    <!-- Chat Popup -->
-    <button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
-
-    <div id="chatPopup" class="chat-popup">
-        <div id="chatHeader" class="chat-header">
-            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
-            <div class="chat-controls">
-                <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
-                <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
+                </div>
             </div>
         </div>
-        <div id="chatBody" class="chat-body">
-            <!-- Chat messages will appear here -->
-        </div>
-        <div class="chat-input-container">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
-            <button id="chatSendBtn" class="chat-send-btn">➤</button>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Welcome Back</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" onclick="switchToSignup()">Sign up</a>
+                </p>
+            </form>
         </div>
     </div>
 
-    <script src="js/script.js" defer></script>
-    <script src="js/dashboard.js" defer></script>
-    <script src="js/chat.js" defer></script>
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Buat Akun Baru</h2>
+                <span class="close" onclick="closeSignupModal()">&times;</span>
+            </div>
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" required placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                </div>
+                <div class="registration-info">
+                    <p><i class="fas fa-shield-alt"></i> Data disimpan aman di perangkat Anda</p>
+                </div>
+                <button type="submit" class="auth-btn">Buat Akun</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-section">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="EnergyAI Logo">
+                        <span>EnergyAI</span>
+                    </div>
+                    <p>Smart energy management for a sustainable future.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EnergyAI. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/landing.js"></script>
 </body>
 </html>

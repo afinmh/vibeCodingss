@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users - EnergyAI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 2rem;
+            color: #4f46e5;
+        }
+
+        .stat-card p {
+            margin: 0.5rem 0 0;
+            color: #64748b;
+        }
+
+        .users-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-header {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-header h3 {
+            margin: 0;
+            color: #334155;
+        }
+
+        .table-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .user-row {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-row:hover {
+            background: #f8fafc;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h4 {
+            margin: 0;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+
+        .user-details p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-demo {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-local {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3730a3;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-users"></i> Registered Users</h1>
+            <p>Manage and view all registered EnergyAI users</p>
+        </div>
+
+        <div class="content">
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="totalUsers">0</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="demoUsers">0</h3>
+                    <p>Demo Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="localUsers">0</h3>
+                    <p>Local Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="activeUsers">0</h3>
+                    <p>Active Sessions</p>
+                </div>
+            </div>
+
+            <div class="users-table">
+                <div class="table-header">
+                    <h3>User List</h3>
+                </div>
+                <div class="table-content" id="usersContainer">
+                    <!-- Users will be populated here -->
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="btn btn-primary" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+                <button class="btn btn-secondary" onclick="clearAllData()" style="margin-left: 1rem;">
+                    <i class="fas fa-trash"></i> Clear All Data
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'" style="margin-left: 1rem;">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getAllUsers() {
+            try {
+                return JSON.parse(localStorage.getItem('energyai_users') || '[]');
+            } catch (error) {
+                console.error('Error getting users:', error);
+                return [];
+            }
+        }
+
+        function getCurrentUser() {
+            try {
+                const localUser = localStorage.getItem('energyai_user');
+                const sessionUser = sessionStorage.getItem('energyai_user');
+                
+                if (localUser) {
+                    return JSON.parse(localUser);
+                } else if (sessionUser) {
+                    return JSON.parse(sessionUser);
+                }
+                return null;
+            } catch (error) {
+                console.error('Error getting current user:', error);
+                return null;
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+
+        function renderUsers() {
+            const users = getAllUsers();
+            const currentUser = getCurrentUser();
+            const container = document.getElementById('usersContainer');
+
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>No Users Found</h3>
+                        <p>No registered users in localStorage yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = users.map(user => `
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            ${getInitials(user.name)}
+                        </div>
+                        <div class="user-details">
+                            <h4>${user.name} ${currentUser && currentUser.id === user.id ? '(Current)' : ''}</h4>
+                            <p>${user.email}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="margin: 0; color: #64748b; font-size: 0.85rem;">
+                            Registered: ${formatDate(user.signupTime)}
+                        </p>
+                    </div>
+                    <div>
+                        <span class="badge ${user.source === 'demo' ? 'badge-demo' : 'badge-local'}">
+                            ${user.source}
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-secondary" onclick="viewUser('${user.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            const users = getAllUsers();
+            const currentUser = getCurrentUser();
+            
+            const demoUsers = users.filter(u => u.source === 'demo').length;
+            const localUsers = users.filter(u => u.source === 'localStorage').length;
+            
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('demoUsers').textContent = demoUsers;
+            document.getElementById('localUsers').textContent = localUsers;
+            document.getElementById('activeUsers').textContent = currentUser ? 1 : 0;
+        }
+
+        function viewUser(userId) {
+            const users = getAllUsers();
+            const user = users.find(u => u.id === userId);
+            
+            if (user) {
+                alert(`User Details:\n\nName: ${user.name}\nEmail: ${user.email}\nRegistered: ${formatDate(user.signupTime)}\nSource: ${user.source}\n\nProfile:\n${JSON.stringify(user.profile, null, 2)}`);
+            }
+        }
+
+        function refreshData() {
+            renderUsers();
+            updateStats();
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all user data? This action cannot be undone.')) {
+                localStorage.removeItem('energyai_users');
+                localStorage.removeItem('energyai_user');
+                sessionStorage.removeItem('energyai_user');
+                
+                refreshData();
+                alert('All user data has been cleared.');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUsers();
+            updateStats();
+        });
+    </script>
+</body>
+</html>

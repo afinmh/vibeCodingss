@@ -1084,3 +1084,17 @@ select#timeRange {
 .profile-link:hover h3 {
     color: #7e57c2;
 }
+
+/* Logout button styling */
+.menu .logout-btn {
+    margin-top: auto;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.menu .logout-btn:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateX(5px);
+}

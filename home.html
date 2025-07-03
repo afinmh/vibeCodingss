@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Energi - Rumah Pintar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const user = localStorage.getItem('energyai_user') || sessionStorage.getItem('energyai_user');
+            if (!user) {
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // Run auth check when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkAuth()) {
+                const userData = JSON.parse(localStorage.getItem('energyai_user') || sessionStorage.getItem('energyai_user'));
+                // Update user name in sidebar if available
+                const userNameElement = document.querySelector('.user-profile h3');
+                if (userNameElement && userData.name) {
+                    userNameElement.textContent = userData.name;
+                }
+            }
+        });
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('energyai_user');
+                sessionStorage.removeItem('energyai_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <button class="hamburger-menu" aria-label="Alihkan Menu"></button>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Smart Fusion">
+                <span>EnergiAI</span>
+            </div>
+            
+            <div class="user-profile">
+                <a href="profile.html" class="profile-link">
+                    <img src="assets/ava.jpg" alt="Avatar Pengguna" class="avatar">
+                    <h3>Afin Maulana</h3>
+                </a>
+            </div>
+
+            <nav class="menu">
+                <a href="#" class="active"><span class="icon">📊</span> Dashboard</a>
+                <a href="appliances.html"><span class="icon">🔌</span> Perangkat</a>
+                <a href="notifications.html"><span class="icon">🔔</span> Notifikasi</a>
+                <a href="rewards.html"><span class="icon">🎁</span> Hadiah</a>
+                <!-- <a href="leaderboard.html"><span class="icon">🏆</span> Papan Peringkat</a> -->
+                <a href="summary.html"><span class="icon">📈</span> Ringkasan</a>
+            </nav>
+
+            <a href="#" onclick="logout()" class="logout"><span class="icon">🚪</span> Keluar</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Dashboard Energi</h1>
+                <div class="header-right">
+                    <select id="timeRange">
+                        <option>30 HARI TERAKHIR</option>
+                    </select>
+                    <button class="updates-btn">🔔 2 PEMBARUAN BARU</button>
+                </div>
+            </header>
+
+            <section class="cost-section">
+                <div class="section-header">
+                    <h2>Biaya Listrik: Bulan Ini</h2>
+                    <div class="legend">
+                        <span class="electricity">Listrik</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+            </section>
+
+            <div class="bottom-grid">
+                <section class="active-appliances">
+                    <div class="section-header">
+                        <h2>Perangkat Aktif</h2>
+                    </div>
+                    <div class="appliance-list"></div>
+                </section>
+
+                <section class="weather-prediction">
+                    <div class="section-header">
+                        <h2>Cuaca</h2>
+                    </div>
+                    <div class="weather-info">
+                        <div class="weather-icon">🌧️</div>
+                        <div class="weather-details">
+                            <div class="weather-condition">Hujan</div>
+                            <div class="weather-temp">24°C</div>
+                        </div>
+                    </div>
+                    <div class="prediction-advice">
+                        <p>Hujan, matikan AC untuk menghemat energi.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="prediction">
+                    <div class="section-header">
+                        <h2>Rencana Hemat</h2>
+                    </div>
+                    <div class="prediction-content">
+                        <div class="ai-recommendation">
+                            <div class="recommendation-list">
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Matikan AC 1 jam lebih cepat setiap hari</p>
+                                        <span class="savings">Hemat: 10 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Gunakan timer untuk mesin cuci di malam hari</p>
+                                        <span class="savings">Hemat: 5 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                                <div class="recommendation-item">
+                                    <div class="recommendation-text">
+                                        <p>Atur suhu kulkas ke level optimal</p>
+                                        <span class="savings">Hemat: 3 kWh/bulan</span>
+                                    </div>
+                                    <button class="apply-btn">Terapkan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat Popup -->
+    <button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
+
+    <div id="chatPopup" class="chat-popup">
+        <div id="chatHeader" class="chat-header">
+            <h3><span class="chat-icon">🤖</span> Asisten Energi</h3>
+            <div class="chat-controls">
+                <button id="chatCollapseBtn" class="chat-control-btn">🔼</button>
+                <button id="chatCloseBtn" class="chat-control-btn">✖️</button>
+            </div>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan Anda di sini...">
+            <button id="chatSendBtn" class="chat-send-btn">➤</button>
+        </div>
+    </div>
+
+    <script src="js/script.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+    <script src="js/chat.js" defer></script>
+</body>
+</html>
