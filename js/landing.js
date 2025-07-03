@@ -219,8 +219,6 @@ async function handleSignup() {
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const agreeTerms = document.getElementById('agreeTerms').checked;
-
     // Validation
     if (!name || !email || !password || !confirmPassword) {
         showNotification('Please fill in all fields', 'error');
@@ -242,10 +240,6 @@ async function handleSignup() {
         return;
     }
 
-    if (!agreeTerms) {
-        showNotification('Please agree to the Terms of Service', 'error');
-        return;
-    }
 
     // Show loading state
     const signupBtn = document.querySelector('#signupForm .auth-btn');
