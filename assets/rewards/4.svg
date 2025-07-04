@@ -1,0 +1,55 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="lightGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGradient)" rx="12"/>
+  
+  <!-- LED Bulb 1 -->
+  <ellipse cx="140" cy="120" rx="25" ry="35" fill="url(#lightGradient)"/>
+  <rect x="125" y="155" width="30" height="15" fill="#e5e7eb" rx="3"/>
+  <rect x="130" y="170" width="20" height="10" fill="#9ca3af" rx="2"/>
+  
+  <!-- LED Bulb 2 -->
+  <ellipse cx="200" cy="100" rx="25" ry="35" fill="url(#lightGradient)"/>
+  <rect x="185" y="135" width="30" height="15" fill="#e5e7eb" rx="3"/>
+  <rect x="190" y="150" width="20" height="10" fill="#9ca3af" rx="2"/>
+  
+  <!-- LED Bulb 3 -->
+  <ellipse cx="260" cy="120" rx="25" ry="35" fill="url(#lightGradient)"/>
+  <rect x="245" y="155" width="30" height="15" fill="#e5e7eb" rx="3"/>
+  <rect x="250" y="170" width="20" height="10" fill="#9ca3af" rx="2"/>
+  
+  <!-- LED Bulb 4 -->
+  <ellipse cx="320" cy="140" rx="25" ry="35" fill="url(#lightGradient)"/>
+  <rect x="305" y="175" width="30" height="15" fill="#e5e7eb" rx="3"/>
+  <rect x="310" y="190" width="20" height="10" fill="#9ca3af" rx="2"/>
+  
+  <!-- Light rays -->
+  <path d="M115 100 L125 110" stroke="#fbbf24" stroke-width="2"/>
+  <path d="M125 85 L130 100" stroke="#fbbf24" stroke-width="2"/>
+  <path d="M140 75 L140 95" stroke="#fbbf24" stroke-width="2"/>
+  <path d="M155 85 L150 100" stroke="#fbbf24" stroke-width="2"/>
+  <path d="M165 100 L155 110" stroke="#fbbf24" stroke-width="2"/>
+  
+  <!-- Package box -->
+  <rect x="80" y="200" width="240" height="40" fill="white" rx="8" stroke="#d1d5db" stroke-width="2"/>
+  <text x="200" y="225" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="16" font-weight="bold">PAKET 4 LAMPU LED</text>
+  
+  <!-- Energy saving badge -->
+  <circle cx="350" cy="80" r="30" fill="#10b981"/>
+  <text x="350" y="78" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">80%</text>
+  <text x="350" y="88" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">HEMAT</text>
+  
+  <!-- Title -->
+  <text x="200" y="270" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Paket Lampu LED</text>
+  <text x="200" y="290" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14">Hemat Energi 80%</text>
+</svg>

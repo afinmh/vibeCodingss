@@ -315,9 +315,14 @@ function showRewardModal(rewardId) {
     document.getElementById('modalRewardDescription').textContent = reward.description;
     document.getElementById('modalRewardPoints').textContent = reward.points.toLocaleString('id-ID');
     
-    // Atur gambar/ikon hadiah
+    // Atur gambar hadiah berdasarkan ID
     const modalRewardImage = document.getElementById('modalRewardImage');
-    modalRewardImage.innerHTML = getRewardIcon(reward.image);
+    modalRewardImage.innerHTML = `<img src="assets/rewards/${reward.id}.png" alt="${reward.title}" 
+                                      onerror="this.src='assets/rewards/${reward.id}.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='flex';}" 
+                                      style="width: 90%; height: 200px; object-fit: cover; border-radius: 8px;">
+                                  <div style="display: none; width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                                      ${getRewardIcon(reward.image)}
+                                  </div>`;
     
     // Simpan ID hadiah di tombol konfirmasi untuk referensi
     confirmClaimBtn.dataset.id = reward.id;
